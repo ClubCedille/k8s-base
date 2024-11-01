@@ -11,16 +11,11 @@ spec:
   sources:
     - chart: contour
       helm:
-        valueFiles:
-          - $values/bases/contour/helm/contour-values.yaml
         parameters:
           - name: envoy.service.type
             value: "LoadBalancer"
       repoURL: https://charts.bitnami.com/bitnami
-      targetRevision: 7.4.2  # Adjust to the latest version
-    - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
-      targetRevision: master
-      ref: values
+      targetRevision: 1.30.0 
   syncPolicy:
     automated: {}
     syncOptions:
