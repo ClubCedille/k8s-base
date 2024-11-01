@@ -5,10 +5,8 @@ envoy:
     ports:
       http: 80
       https: 443
-
 contour:
   replicaCount: 2 
-
 certificates:
   enabled: true
   secretName: contour-cert 
@@ -18,11 +16,9 @@ certificates:
   dnsNames:
     - example.com
     - "*.example.com"
-
 ingressClass:
   name: contour
   default: true
-
 tls:
   envoy:
     minimumProtocolVersion: "1.2"

@@ -21,9 +21,6 @@ spec:
     - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
       targetRevision: master
       ref: values
-    - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
-      targetRevision: master
-      path: bases/contour/config
   syncPolicy:
     automated: {}
     syncOptions:
