@@ -12,18 +12,18 @@ spec:
     - chart: cert-manager
       helm:
         valueFiles:
-        - $values/system/cert-manager/helm/cert-manager-values.yaml
-        parameters: 
-          - name: installCRDs # Not recommended for prod installs according to: https://cert-manager.io/docs/installation/helm/
+          - $values/bases/cert-manager/helm/cert-manager-values.yaml
+        parameters:
+          - name: installCRDs     # Not recommended for prod installs according to: https://cert-manager.io/docs/installation/helm/
             value: "true"
       repoURL: https://charts.jetstack.io
       targetRevision: v1.13.1
-    - repoURL: 'https://github.com/ClubCedille/Plateforme-Cedille.git'
+    - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
       targetRevision: master
       ref: values
-    - repoURL: 'https://github.com/ClubCedille/Plateforme-Cedille.git'
+    - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
       targetRevision: master
-      path: system/cert-manager/issuers
+      path: bases/cert-manager/issuers
   syncPolicy:
     automated: {}
     syncOptions:
