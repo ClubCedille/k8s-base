@@ -1,15 +1,15 @@
 envoy:
   service:
-    type: LoadBalancer 
+    type: LoadBalancer
     externalTrafficPolicy: Local
     ports:
       http: 80
       https: 443
 contour:
-  replicaCount: 2 
+  replicaCount: 2
 certificates:
   enabled: true
-  secretName: contour-cert 
+  secretName: contour-cert
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
