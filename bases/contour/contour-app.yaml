@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: contour
+  namespace: argocd
+spec:
+  destination:
+    namespace: project-contour
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - chart: contour
+      helm:
+        valueFiles:
+          - $values/bases/contour/helm/contour-values.yaml
+        parameters:
+          - name: envoy.service.type
+            value: "LoadBalancer"
+      repoURL: https://charts.bitnami.com/bitnami
+      targetRevision: 7.4.2  # Adjust to the latest version
+    - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+      targetRevision: master
+      ref: values
+    - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+      targetRevision: master
+      path: bases/contour/config
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
