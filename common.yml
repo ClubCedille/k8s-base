@@ -13,3 +13,6 @@ spec:
     repoURL: https://github.com/ClubCedille/k8s-base
     path: common
     targetRevision: HEAD
+    directory:
+      recurse: true
+      include: "{*.argoapp.yaml,*.argoapp.yml}"
