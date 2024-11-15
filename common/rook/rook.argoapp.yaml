@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ClubCedille/k8s-base
-    path: bases/common/rook/ressources
+    path: common/rook/ressources
     targetRevision: HEAD
   syncPolicy:
     automated: {}
