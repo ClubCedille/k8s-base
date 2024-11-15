@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: external-ips
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            etsmtl.club/external-network: "true"
+  template:
+    metadata:
+      name: '{{.name}}-external-ip'
+      annotations:
+        argocd.argoproj.io/sync-wave: "-80"
+    spec:
+      project: "{{.name}}"
+      source:
+        repoURL: https://github.com/ClubCedille/k8s-base/
+        targetRevision: HEAD
+        path: common/external-ip
+        kustomize:
+          patches:
+            - patch: |-
+                - op: add
+                  path: /spec/addresses/0
+                  value: '{{  index .metadata.annotations "etsmtl.club/external-ip" }}'
+              target:
+                kind: IPAddressPool
+      destination:
+        server: '{{.server}}'
+        namespace: metallb-system
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true

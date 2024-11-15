@@ -741,10 +741,10 @@ webhook:
     # +docs:property
     namespaceSelector:
       matchExpressions:
-        - key: "cert-manager.io/disable-validation"
-          operator: "NotIn"
-          values:
-            - "true"
+      - key: "cert-manager.io/disable-validation"
+        operator: "NotIn"
+        values:
+        - "true"
 
   mutatingWebhookConfiguration:
     # Configure spec.namespaceSelector for mutating webhooks.

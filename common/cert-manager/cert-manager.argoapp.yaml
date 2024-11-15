@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-cert-manager"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "-70"
+    spec:
+      destination:
+        namespace: cert-manager
+        server: "{{.server}}"
+      project: "{{.name}}"
+      sources:
+        - chart: cert-manager
+          helm:
+            valueFiles:
+              - $values/common/cert-manager/helm/cert-manager-values.yaml
+            parameters:
+              - name: installCRDs     # Not recommended for prod installs according to: https://cert-manager.io/docs/installation/helm/
+                value: "true"
+          repoURL: https://charts.jetstack.io
+          targetRevision: v1.16.1
+        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+          targetRevision: master
+          ref: values
+        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+          targetRevision: master
+          path: common/cert-manager/issuers
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true

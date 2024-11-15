@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: rook
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-rook"
+      namespace: argocd
+    spec:
+      destination:
+        namespace: rook
+        server: "{{.server}}"
+      project: "{{.name}}"
+      source:
+        repoURL: https://github.com/ClubCedille/k8s-base
+        path: common/rook/ressources
+        targetRevision: HEAD
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true

@@ -1,0 +1,3 @@
+resources:
+  - routes-daemonset.yaml
+  - ip-reservation.yaml
