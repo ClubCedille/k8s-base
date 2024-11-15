@@ -22,15 +22,15 @@ spec:
         repoURL: https://github.com/ClubCedille/k8s-management/
         targetRevision: HEAD
         path: common/external-ip
-      kustomize:
-        patches:
-          patch: |-
-            - op: add
-              path: /spec/addresses/0
-              value:
-                ip: {{  index .metadata.annotations "etsmtl.club/external-ip" }}
-          target:
-            kind: IPAddressPool
+        kustomize:
+          patches:
+            - patch: |-
+                - op: add
+                  path: /spec/addresses/0
+                  value:
+                    ip: {{  index .metadata.annotations "etsmtl.club/external-ip" }}
+              target:
+                kind: IPAddressPool
       destination:
         server: '{{.server}}'
         namespace: metallb-system
