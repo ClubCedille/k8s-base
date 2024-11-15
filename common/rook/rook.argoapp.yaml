@@ -1,18 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: rook
+  name: metallb
   namespace: argocd
 spec:
-  destination:
-    namespace: rook
-    server: https://kubernetes.default.svc
-  project: default
-  source:
-    repoURL: https://github.com/ClubCedille/k8s-base
-    path: common/rook/ressources
-    targetRevision: HEAD
-  syncPolicy:
-    automated: {}
-    syncOptions:
-      - CreateNamespace=true
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-rook"
+      namespace: argocd
+    spec:
+      destination:
+        namespace: rook
+        server: "{{.server}}"
+      project: "{{.name}}"
+      source:
+        repoURL: https://github.com/ClubCedille/k8s-base
+        path: common/rook/ressources
+        targetRevision: HEAD
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true
