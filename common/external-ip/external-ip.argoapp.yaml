@@ -33,3 +33,7 @@ spec:
       destination:
         server: '{{.server}}'
         namespace: metallb-system
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true

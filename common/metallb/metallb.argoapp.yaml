@@ -22,3 +22,7 @@ spec:
         repoURL: https://github.com/ClubCedille/k8s-base
         path: common/metallb
         targetRevision: HEAD
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true
