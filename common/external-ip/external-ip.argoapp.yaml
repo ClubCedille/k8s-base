@@ -23,7 +23,7 @@ spec:
         targetRevision: HEAD
         path: common/external-ip
       destination:
-        server: {{.server}}
+        server: '{{.server}}'
         namespace: metallb-system
       kustomize:
         patches:
