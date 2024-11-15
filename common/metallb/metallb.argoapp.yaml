@@ -1,15 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: metallb
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "-90"
 spec:
-  project: default
-  destination:
-    server: https://kubernetes.default.svc
-  source:
-    repoURL: https://github.com/ClubCedille/k8s-base
-    path: common/metallb
-    targetRevision: HEAD
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-metallb"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "-90"
+    spec:
+      project: "{{.name}}"
+      destination:
+        server: "{{.server}}"
+      source:
+        repoURL: https://github.com/ClubCedille/k8s-base
+        path: common/metallb
+        targetRevision: HEAD
