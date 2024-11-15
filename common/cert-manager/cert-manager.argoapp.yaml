@@ -36,6 +36,8 @@ spec:
           targetRevision: master
           path: common/cert-manager/issuers
       syncPolicy:
-        automated: {}
+        automated:
+          selfHeal: true
+          prune: true
         syncOptions:
           - CreateNamespace=true

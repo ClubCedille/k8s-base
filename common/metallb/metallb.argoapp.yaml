@@ -23,6 +23,8 @@ spec:
         path: common/metallb
         targetRevision: HEAD
       syncPolicy:
-        automated: {}
+        automated:
+          selfHeal: true
+          prune: true
         syncOptions:
           - CreateNamespace=true
