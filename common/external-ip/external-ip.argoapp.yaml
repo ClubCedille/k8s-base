@@ -19,7 +19,7 @@ spec:
     spec:
       project: "{{.name}}"
       source:
-        repoURL: https://github.com/ClubCedille/k8s-management/
+        repoURL: https://github.com/ClubCedille/k8s-base/
         targetRevision: HEAD
         path: common/external-ip
         kustomize:
