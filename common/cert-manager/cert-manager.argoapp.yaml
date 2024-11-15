@@ -12,7 +12,7 @@ spec:
     - chart: cert-manager
       helm:
         valueFiles:
-          - $values/bases/common/cert-manager/helm/cert-manager-values.yaml
+          - $values/common/cert-manager/helm/cert-manager-values.yaml
         parameters:
           - name: installCRDs     # Not recommended for prod installs according to: https://cert-manager.io/docs/installation/helm/
             value: "true"
@@ -23,7 +23,7 @@ spec:
       ref: values
     - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
       targetRevision: master
-      path: bases/common/cert-manager/issuers
+      path: common/cert-manager/issuers
   syncPolicy:
     automated: {}
     syncOptions:
