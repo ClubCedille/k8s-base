@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: rook
+  name: rook-ceph-external
   namespace: argocd
 spec:
   goTemplate: true
@@ -14,7 +14,7 @@ spec:
       namespace: argocd
     spec:
       destination:
-        namespace: rook
+        namespace: rook-ceph-external
         server: "{{.server}}"
       project: "{{.name}}"
       source:
