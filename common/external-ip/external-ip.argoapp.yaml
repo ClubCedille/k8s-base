@@ -27,7 +27,7 @@ spec:
             - patch: |-
                 - op: add
                   path: /spec/addresses/0
-                  value: '{{  index .metadata.annotations "etsmtl.club/external-ip" }}'
+                  value: '{{  index .metadata.annotations "etsmtl.club/external-ip" }}/32'
               target:
                 kind: IPAddressPool
       destination:
