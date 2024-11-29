@@ -21,7 +21,7 @@ spec:
         - -c
         args:
         - |
-          export VLAN_DEVICE=$(basename $(ls /proc/net/vlan/*.247))
+          export VLAN_DEVICE=$(basename $(ls /proc/net/vlan/*.247) | cut -d. -f1)
           ip route add 142.137.247.0/24 dev $VLAN_DEVICE table 100
           ip route add default via 142.137.247.1 table 100
           ip rule add from 142.137.247.0/24 lookup 100
