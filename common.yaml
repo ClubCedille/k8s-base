@@ -16,3 +16,9 @@ spec:
     directory:
       recurse: true
       include: "{*.argoapp.yaml,*.argoapp.yml}"
+  syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
