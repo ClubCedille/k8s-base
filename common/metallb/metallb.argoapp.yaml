@@ -17,11 +17,16 @@ spec:
     spec:
       project: "{{.name}}"
       ignoreDifferences:
-      - group: apiextensions.k8s.io/v1
+      - group: "apiextensions.k8s.io"
         kind: CustomResourceDefinition
         name: bgppeers.metallb.io
         jsonPointers:
-        - /spec/conversion/webhook/clientConfig/caBundle
+          - /spec/conversion/webhook/clientConfig/caBundle
+      - group: "apiextensions.k8s.io"
+        kind: CustomResourceDefinition
+        name: addresspools.metallb.io
+        jsonPointers:
+          - /spec/conversion/webhook/clientConfig/caBundle
       destination:
         server: "{{.server}}"
       source:
@@ -34,3 +39,4 @@ spec:
           prune: true
         syncOptions:
           - CreateNamespace=true
+          - RespectIgnoreDifferences=true
