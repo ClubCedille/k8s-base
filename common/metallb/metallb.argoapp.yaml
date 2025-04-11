@@ -16,6 +16,12 @@ spec:
         argocd.argoproj.io/sync-wave: "-90"
     spec:
       project: "{{.name}}"
+      ignoreDifferences:
+      - group: apiextensions.k8s.io/v1
+        kind: CustomResourceDefinition
+        name: bgppeers.metallb.io
+        jsonPointers:
+        - /spec/conversion/webhook/clientConfig/caBundle
       destination:
         server: "{{.server}}"
       source:
