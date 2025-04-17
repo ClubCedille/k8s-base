@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: velero
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-velero"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "-1000"
+    spec:
+      destination:
+        namespace: velero
+        server: "{{.server}}"
+      project: "{{.name}}"
+      sources:
+        - chart: vmware-tanzu/velero
+          helm:
+            valueFiles:
+              - $values/common/velero/helm/values.yaml
+          repoURL: https://vmware-tanzu.github.io/helm-charts/
+          targetRevision: 8.6.0
+        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+          targetRevision: master
+          ref: values
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
