@@ -19,4 +19,4 @@ helmCharts:
       ingress:
         ingressClassName: contour-internal
       namespaceOverride: contour-internal
-      fullnameOverride: contour-internal
+      nameOverride: contour-internal
