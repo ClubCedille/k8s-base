@@ -18,4 +18,5 @@ helmCharts:
           default: true
       ingress:
         ingressClassName: contour
+      namespaceOverride: contour-external
       nameOverride: contour-external
