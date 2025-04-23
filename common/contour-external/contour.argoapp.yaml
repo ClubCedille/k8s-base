@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: contour
+  name: contour-external
   namespace: argocd
 spec:
   goTemplate: true
@@ -10,13 +10,13 @@ spec:
     - clusters: {}
   template:
     metadata:
-      name: "{{.name}}-contour"
+      name: "{{.name}}-contour-internal"
       namespace: argocd
       annotations:
         argocd.argoproj.io/sync-wave: "-70"
     spec:
       destination:
-        namespace: project-contour
+        namespace: contour-external
         server: "{{.server}}"
       project: "{{.name}}"
       sources:
@@ -25,8 +25,16 @@ spec:
             parameters:
               - name: envoy.service.type
                 value: "LoadBalancer"
+              - name: ingressClass.name
+                value: "contour-external"
+              - name: ingressClassName
+                value: "contour-external"
+              - name:  namespaceOverride
+                value: "contour-external"
+              - name: fullnameOverride
+                value: "contour-external"
           repoURL: https://charts.bitnami.com/bitnami
-          targetRevision: 19.3.1
+          targetRevision: 19.5.10
       syncPolicy:
         automated:
           selfHeal: true
