@@ -5,8 +5,9 @@ metadata:
   namespace: metallb-system
 spec:
   addresses: []
-  namespaces:
-  - contour-internal
+  serviceAllocation:
+    namespaces:
+    - contour-internal
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
