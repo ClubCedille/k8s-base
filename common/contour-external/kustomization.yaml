@@ -12,10 +12,4 @@ helmCharts:
       envoy:
         service:
           type: LoadBalancer
-      contour:
-        ingressClass:
-          name: contour
-          default: true
-      ingress:
-        ingressClassName: contour
       namespaceOverride: contour-external
