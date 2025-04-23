@@ -15,7 +15,7 @@ spec:
       annotations:
         argocd.argoproj.io/sync-wave: "0"
     spec:
-      project: "k8s-management"
+      project: "k8s-management-v2"
       destination:
         server: "https://kubernetes.default.svc"
         namespace: argocd
