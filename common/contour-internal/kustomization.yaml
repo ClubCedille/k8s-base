@@ -12,9 +12,11 @@ helmCharts:
       envoy:
         service:
           type: LoadBalancer
-      ingressClass:
-        name: contour-internal
-        default: false
-      ingressClassName: contour-internal
+      contour:
+        ingressClass:
+          name: contour-internal
+          default: false
+      ingress:
+        ingressClassName: contour-internal
       namespaceOverride: contour-internal
       fullnameOverride: contour-internal
