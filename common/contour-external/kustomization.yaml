@@ -11,7 +11,7 @@ helmCharts:
     valuesInline:
       envoy:
         service:
-          type: LoadBalancer'
+          type: LoadBalancer
       contour:
         ingressClass:
           name: contour
