@@ -19,22 +19,10 @@ spec:
         namespace: contour-external
         server: "{{.server}}"
       project: "{{.name}}"
-      sources:
-        - chart: contour
-          helm:
-            parameters:
-              - name: envoy.service.type
-                value: "LoadBalancer"
-              - name: ingressClass.name
-                value: "contour-external"
-              - name: ingressClassName
-                value: "contour-external"
-              - name:  namespaceOverride
-                value: "contour-external"
-              - name: fullnameOverride
-                value: "contour-external"
-          repoURL: https://charts.bitnami.com/bitnami
-          targetRevision: 19.5.10
+      source:
+        repoURL: https://github.com/ClubCedille/k8s-base
+        path: common/contour-external
+        targetRevision: HEAD
       syncPolicy:
         automated:
           selfHeal: true
