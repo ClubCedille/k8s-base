@@ -10,7 +10,7 @@ spec:
     - clusters: {}
   template:
     metadata:
-      name: "{{.name}}-contour-internal"
+      name: "{{.name}}-contour-external"
       namespace: argocd
       annotations:
         argocd.argoproj.io/sync-wave: "-70"
