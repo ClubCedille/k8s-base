@@ -13,7 +13,7 @@ helmCharts:
         service:
           type: LoadBalancer
       ingressClass:
-        name: contour-external
+        name: contour
         default: true
       ingressClassName: contour-external
       namespaceOverride: contour-external
