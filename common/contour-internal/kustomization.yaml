@@ -16,6 +16,6 @@ helmCharts:
         ingressClass:
           name: contour-internal
           default: false
-      ingress:
-        ingressClassName: contour-internal
+      # ingress:
+        # ingressClassName: contour-internal
       namespaceOverride: contour-internal
