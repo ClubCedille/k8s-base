@@ -29,6 +29,8 @@ spec:
                 value: b2
               - name: configuration.backupStorageLocation[0].provider
                 value: aws
+              - name: configuration.volumeSnapshotLocation[0].provider
+                value: aws
               - name: configuration.backupStorageLocation[0].accessMode
                 value: ReadWrite
               - name: configuration.backupStorageLocation[0].default
