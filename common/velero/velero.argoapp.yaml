@@ -31,6 +31,8 @@ spec:
                 value: aws
               - name: configuration.backupStorageLocation[0].accessMode
                 value: ReadWrite
+              - name: configuration.backupStorageLocation[0].default
+                value: "true"
               - name: configuration.backupStorageLocation[0].config.region
                 value: ca-east-006
               - name: configuration.backupStorageLocation[0].config.s3Url
