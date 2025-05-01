@@ -20,7 +20,7 @@ spec:
         server: "{{.server}}"
       project: "{{.name}}"
       sources:
-        - chart: vmware-tanzu/velero
+        - chart: velero
           helm:
             parameters:
               - name: configuration.backupStorageLocation[0].bucket
@@ -48,7 +48,7 @@ spec:
               - name: initContainers[0].volumeMounts[0].name
                 value: plugins
           repoURL: https://vmware-tanzu.github.io/helm-charts/
-          targetRevision: 8.6.0
+          targetRevision: 9.0.4
       syncPolicy:
         automated:
           selfHeal: true
