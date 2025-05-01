@@ -22,13 +22,25 @@ spec:
       sources:
         - chart: vmware-tanzu/velero
           helm:
-            valueFiles:
-              - $values/common/velero/helm/values.yaml
+            parameters:
+              - name: configuration.backupStorageLocation[0].bucket
+                value: "{{ .name }}-bucket"
+              - name: configuration.backupStorageLocation[0].name
+                value: b2
+              - name: configuration.backupStorageLocation[0].provider
+                value: aws
+              - name: configuration.backupStorageLocation[0].accessMode
+                value: ReadWrite
+              - name: configuration.backupStorageLocation[0].config.region
+                value: ca-east-006
+              - name: configuration.backupStorageLocation[0].config.s3Url
+                value: https://s3.ca-east-006.backblazeb2.com
+              - name: credentials.useSecret
+                value: "true"
+              - name: credentials.existingSecret
+                value: velero-b2-credentials
           repoURL: https://vmware-tanzu.github.io/helm-charts/
-          targetRevision: 8.6.0
-        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
-          targetRevision: master
-          ref: values
+          targetRevision: 9.0.4
       syncPolicy:
         automated:
           selfHeal: true
