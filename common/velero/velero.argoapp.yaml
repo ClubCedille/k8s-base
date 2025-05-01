@@ -48,7 +48,7 @@ spec:
               - name: initContainers[0].volumeMounts[0].name
                 value: plugins
           repoURL: https://vmware-tanzu.github.io/helm-charts/
-          targetRevision: 9.0.4
+          targetRevision: 8.6.0
       syncPolicy:
         automated:
           selfHeal: true
