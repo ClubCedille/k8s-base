@@ -18,6 +18,8 @@ helmCharts:
         ingressClass:
           name: contour-internal
           default: false
+        extraArgs:
+          - --envoy-service-namespace=contour-internal
       # ingress:
         # ingressClassName: contour-internal
       namespaceOverride: contour-internal
