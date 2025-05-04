@@ -14,7 +14,7 @@ helmCharts:
           type: LoadBalancer
         extraArgs:
           - --base-id 1
-      namespaceOverride: contour-external
       contour:
-        extraArgs:
-          - --envoy-service-namespace=contour-external
+        envoyServiceNamespace: contour-external
+        envoyServiceName: contour-external-envoy
+      namespaceOverride: contour-external
