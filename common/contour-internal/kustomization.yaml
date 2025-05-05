@@ -6,7 +6,7 @@ namespace: contour-internal
 helmCharts:
   - name: contour
     repo: oci://registry-1.docker.io/bitnamicharts
-    version: 19.5.10
+    version: 19.5.11
     releaseName: contour-internal
     valuesInline:
       envoy:
@@ -20,4 +20,5 @@ helmCharts:
           default: false
         envoyServiceNamespace: contour-internal
         envoyServiceName: contour-internal-envoy
+        manageCRDs: false
       namespaceOverride: contour-internal
