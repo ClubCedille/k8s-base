@@ -12,8 +12,6 @@ helmCharts:
       envoy:
         service:
           type: LoadBalancer
-        extraArgs:
-          - --base-id 1
       contour:
         envoyServiceNamespace: contour-external
         envoyServiceName: contour-external-envoy
