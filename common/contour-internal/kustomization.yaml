@@ -12,8 +12,6 @@ helmCharts:
       envoy:
         service:
           type: LoadBalancer
-        extraArgs:
-          - --base-id 2
       contour:
         ingressClass:
           name: contour-internal
