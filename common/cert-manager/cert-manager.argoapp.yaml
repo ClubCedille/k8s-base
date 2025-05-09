@@ -24,11 +24,8 @@ spec:
           helm:
             valueFiles:
               - $values/common/cert-manager/helm/cert-manager-values.yaml
-            parameters:
-              - name: installCRDs     # Not recommended for prod installs according to: https://cert-manager.io/docs/installation/helm/
-                value: "true"
           repoURL: https://charts.jetstack.io
-          targetRevision: v1.16.1
+          targetRevision: v1.17.2
         - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
           targetRevision: master
           ref: values
