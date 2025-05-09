@@ -1,17 +1,31 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-etsmtl
+  name: letsencrypt-http
   namespace: cert-manager
 spec:
   acme:
     email: cedille@etsmtl.ca
     privateKeySecretRef:
-      name: letsencrypt-etsmtl
+      name: letsencrypt-http
     server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
-    - dns01:
-        cloudflare:
-          apiTokenSecretRef:
-            name: cloudflare-token-etsmtl
-            key: token
+    - http01:
+        ingress:
+          class: contour
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-http-internal
+  namespace: cert-manager
+spec:
+  acme:
+    email: cedille@etsmtl.ca
+    privateKeySecretRef:
+      name: letsencrypt-http-internal
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+        ingress:
+          class: contour-internal
