@@ -24,8 +24,8 @@ spec:
         path: common/contour-external
         targetRevision: HEAD
       syncPolicy:
-        # automated:
-        #   selfHeal: true
-        #   prune: true
+        automated:
+          selfHeal: true
+          prune: true
         syncOptions:
           - CreateNamespace=true
