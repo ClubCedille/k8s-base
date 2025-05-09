@@ -10,22 +10,8 @@ spec:
       name: letsencrypt-etsmtl
     server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
-    - http01:
-        ingress:
-          class: contour
----
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt-etsmtl-internal
-  namespace: cert-manager
-spec:
-  acme:
-    email: cedille@etsmtl.ca
-    privateKeySecretRef:
-      name: letsencrypt-etsmtl-internal
-    server: https://acme-v02.api.letsencrypt.org/directory
-    solvers:
-    - http01:
-        ingress:
-          class: contour-internal
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-token-etsmtl
+            key: token
