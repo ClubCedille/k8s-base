@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: postgresql-cloudnative
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-postgresql-cloudnative"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "-10"
+    spec:
+      destination:
+        namespace: cnpg-system
+        server: "{{.server}}"
+      project: "{{.name}}"
+      source:
+        repoURL: https://github.com/ClubCedille/k8s-base
+        path: common/postgresql-cloudnative
+        targetRevision: HEAD
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
