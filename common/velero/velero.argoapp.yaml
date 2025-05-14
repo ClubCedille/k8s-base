@@ -23,7 +23,7 @@ spec:
         - chart: velero
           helm:
             parameters:
-              - name: features
+              - name: configuration.features
                 value: EnableCSI
               - name: configuration.backupStorageLocation[0].bucket
                 value: "{{ .name }}-bucket"
