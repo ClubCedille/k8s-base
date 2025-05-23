@@ -28,7 +28,7 @@ spec:
               - name: configuration.backupStorageLocation[0].bucket
                 value: "{{ .name }}-bucket"
               - name: configuration.backupStorageLocation[0].name
-                value: b2
+                value: default
               - name: configuration.backupStorageLocation[0].prefix
                 value: velero
               - name: configuration.backupStorageLocation[0].provider
