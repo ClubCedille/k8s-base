@@ -55,6 +55,8 @@ spec:
                 value: /target
               - name: initContainers[0].volumeMounts[0].name
                 value: plugins
+              - name: nodeAgent.podLabels[0].role
+                value: node-agent
           repoURL: https://vmware-tanzu.github.io/helm-charts/
           targetRevision: 9.0.4
       syncPolicy:
