@@ -32,6 +32,8 @@ spec:
                 value: Exists
               - name: nameOverride
                 value: velero
+              - name: fullnameOverride
+                value: velero
 
               - name: configuration.backupStorageLocation[0].bucket
                 value: "{{ .name }}-bucket"
