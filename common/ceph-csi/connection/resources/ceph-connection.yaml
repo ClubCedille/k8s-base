@@ -1,0 +1,8 @@
+apiVersion: csi.ceph.io/v1alpha1
+kind: CephConnection
+metadata:
+  name: proxmox-ceph-connection
+  namespace: ceph-csi
+spec:
+  monitors:
+  - 10.98.44.171:6789 #TODO

@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ceph-csi-appset
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-ceph-csi-app"
+      namespace: argocd
+    spec:
+      destination:
+        namespace: ceph-csi
+        server: "{{.server}}"
+      project: "{{.name}}"
+      sources:
+        - repoURL: 'https://github.com/ClubCedille/k8s-base.git' # Sync wave (1)
+          targetRevision: HEAD
+          path: common/ceph-csi/operator
+        - repoURL: 'https://github.com/ClubCedille/k8s-base.git' # Sync wave (2)
+          targetRevision: HEAD
+          path: common/ceph-csi/drivers
+        - repoURL: 'https://github.com/ClubCedille/k8s-base.git' # Sync wave (3)
+          targetRevision: HEAD
+          path: common/ceph-csi/connection
+      syncPolicy:
+        managedNamespaceMetadata:
+          labels:
+            pod-security.kubernetes.io/enforce: privileged
+            pod-security.kubernetes.io/audit: privileged
+            pod-security.kubernetes.io/warn: privileged
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true

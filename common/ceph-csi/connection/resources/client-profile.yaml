@@ -1,0 +1,11 @@
+apiVersion: csi.ceph.io/v1alpha1
+kind: ClientProfile
+metadata:
+  name: proxmox-ceph-clientprofile
+  namespace: ceph-csi
+spec:
+  cephConnectionRef:
+    name: proxmox-ceph-connection
+  cephFs:
+    subVolumeGroup: csi
+  
