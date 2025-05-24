@@ -30,6 +30,8 @@ spec:
                 value: "true"
               - name: nodeAgent.tolerations[0].operator
                 value: Exists
+              - name: nameOverride
+                value: velero
 
               - name: configuration.backupStorageLocation[0].bucket
                 value: "{{ .name }}-bucket"
