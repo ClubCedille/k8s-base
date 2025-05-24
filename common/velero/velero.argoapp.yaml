@@ -25,6 +25,8 @@ spec:
             parameters:
               - name: configuration.features
                 value: EnableCSI
+              - name: deployNodeAgent
+                value: "true"
               - name: configuration.backupStorageLocation[0].bucket
                 value: "{{ .name }}-bucket"
               - name: configuration.backupStorageLocation[0].name
@@ -43,18 +45,21 @@ spec:
                 value: ca-east-006
               - name: configuration.backupStorageLocation[0].config.s3Url
                 value: https://s3.ca-east-006.backblazeb2.com
+
               - name: credentials.useSecret
                 value: "true"
               - name: credentials.existingSecret
                 value: velero-b2-credentials
+
               - name: initContainers[0].name
                 value: velero-plugin-for-aws
               - name: initContainers[0].image
-                value: velero/velero-plugin-for-aws:v1.8.2
+                value: velero/velero-plugin-for-aws:v1.12.1
               - name: initContainers[0].volumeMounts[0].mountPath
                 value: /target
               - name: initContainers[0].volumeMounts[0].name
                 value: plugins
+
           repoURL: https://vmware-tanzu.github.io/helm-charts/
           targetRevision: 9.0.4
       syncPolicy:
