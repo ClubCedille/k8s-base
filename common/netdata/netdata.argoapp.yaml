@@ -26,6 +26,10 @@ spec:
         helm:
           releaseName: netdata
           valuesObject:
+            k8sState:
+              persistence:
+                enabled: true
+                storageClass: "cephfs"
             restarter:
               enabled: true
             parent:
