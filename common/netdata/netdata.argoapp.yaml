@@ -48,6 +48,8 @@ spec:
               envFrom:
               - secretRef:
                   name: netdata-claim
+            ingress:
+              enabled: false
       syncPolicy:
         automated:
           selfHeal: true
