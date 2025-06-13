@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: netdata
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-netdata"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "-70"
+    spec:
+      destination:
+        namespace: netdata
+        server: "{{.server}}"
+      project: "{{.name}}"
+      source:
+        chart: netdata
+        repoURL: https://netdata.github.io/helmchart
+        targetRevision: 3.7.139
+        helm:
+          releaseName: netdata
+          valuesObject:
+            restarter:
+              enabled: true
+            parent:
+              claiming:
+                enabled: true
+              envFrom:
+              - secretRef:
+                  name: netdata-claim
+            child:
+              claiming:
+                enabled: true
+              envFrom:
+              - secretRef:
+                  name: netdata-claim
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
+        managedNamespaceMetadata:
+          labels:
+            pod-security.kubernetes.io/enforce: privileged
