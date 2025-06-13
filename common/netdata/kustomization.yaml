@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: netdata
+
+helmCharts:
+  - name: netdata
+    repo: https://netdata.github.io/helmchart
+    version: 3.7.139
+    releaseName: netdata
+    valuesInline:
+      k8sState:
+        persistence:
+          enabled: true
+          storageClass: "cephfs"
+      restarter:
+        enabled: true
+      parent:
+        claiming:
+          enabled: true
+        envFrom:
+        - secretRef:
+            name: netdata-claim
+        database:
+          storageClass: "cephfs"
+        alarms:
+          storageClass: "cephfs"
+      child:
+        claiming:
+          enabled: true
+        envFrom:
+        - secretRef:
+            name: netdata-claim
+      ingress:
+        enabled: false

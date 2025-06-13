@@ -20,36 +20,9 @@ spec:
         server: "{{.server}}"
       project: "{{.name}}"
       source:
-        chart: netdata
-        repoURL: https://netdata.github.io/helmchart
-        targetRevision: 3.7.139
-        helm:
-          releaseName: netdata
-          valuesObject:
-            k8sState:
-              persistence:
-                enabled: true
-                storageClass: "cephfs"
-            restarter:
-              enabled: true
-            parent:
-              claiming:
-                enabled: true
-              envFrom:
-              - secretRef:
-                  name: netdata-claim
-              database:
-                storageClass: "cephfs"
-              alarms:
-                storageClass: "cephfs"
-            child:
-              claiming:
-                enabled: true
-              envFrom:
-              - secretRef:
-                  name: netdata-claim
-            ingress:
-              enabled: false
+        repoURL: https://github.com/ClubCedille/k8s-base.git
+        targetRevision: HEAD
+        path: common/netdata
       syncPolicy:
         automated:
           selfHeal: true
