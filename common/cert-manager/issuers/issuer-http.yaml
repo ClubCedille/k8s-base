@@ -16,7 +16,7 @@ spec:
             name: cloudflare-token-etsmtl
             key: token
       selector:
-        dsnZones:
+        dnsZones:
         - etsmtl.club
 ---
 apiVersion: cert-manager.io/v1
@@ -37,5 +37,5 @@ spec:
             name: cloudflare-token-etsmtl
             key: token
       selector:
-        dsnZones:
+        dnsZones:
         - etsmtl.club
