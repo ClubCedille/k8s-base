@@ -12,7 +12,7 @@ spec:
     solvers:
     - dns01:
         cloudflare:
-          apiKeySecretRef:
+          apiTokenSecretRef:
             name: cloudflare-token-etsmtl
             key: token
 ---
@@ -30,6 +30,6 @@ spec:
     solvers:
     - dns01:
         cloudflare:
-          apiKeySecretRef:
+          apiTokenSecretRef:
             name: cloudflare-token-etsmtl
             key: token
