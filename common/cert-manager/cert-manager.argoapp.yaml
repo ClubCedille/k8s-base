@@ -25,7 +25,7 @@ spec:
             valueFiles:
               - $values/common/cert-manager/helm/cert-manager-values.yaml
           repoURL: https://charts.jetstack.io
-          targetRevision: v1.17.2
+          targetRevision: v1.18.1
         - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
           targetRevision: master
           ref: values
