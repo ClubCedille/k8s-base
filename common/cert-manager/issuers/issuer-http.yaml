@@ -15,6 +15,9 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-token-etsmtl
             key: token
+      selector:
+        dsnZones:
+        - etsmtl.club
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -33,3 +36,6 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-token-etsmtl
             key: token
+      selector:
+        dsnZones:
+        - etsmtl.club
