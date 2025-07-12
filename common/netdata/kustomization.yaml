@@ -25,24 +25,10 @@ helmCharts:
           storageClass: "cephfs"
         alarms:
           storageClass: "cephfs"
-        extraVolumeMounts:
-          - name: netdata-lib
-            mountPath: /var/lib/netdata
-          - name: netdata-cache
-            mountPath: /var/cache/netdata
-        extraVolumes:
-          - name: netdata-lib
-            emptyDir:
-              sizeLimit: 2Gi
-          - name: netdata-cache
-            emptyDir:
-              sizeLimit: 1Gi
         securityContext:
           runAsUser: 201
           runAsGroup: 201
           fsGroup: 201
-        podAnnotations:
-          argocd.argoproj.io/sync-options: "ApplyOutOfOrder=true"
         database:
           storageClass: cephfs
         alarms:
