@@ -43,6 +43,10 @@ helmCharts:
           fsGroup: 201
         podAnnotations:
           argocd.argoproj.io/sync-options: "ApplyOutOfOrder=true"
+        database:
+          storageClass: cephfs
+        alarms:
+          storageClass: cephfs
       child:
         claiming:
           enabled: true
@@ -51,3 +55,6 @@ helmCharts:
             name: netdata-claim
       ingress:
         enabled: false
+      k8sState:
+        persistence:
+          storageClass: cephfs
