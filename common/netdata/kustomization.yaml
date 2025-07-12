@@ -41,6 +41,8 @@ helmCharts:
           runAsUser: 201
           runAsGroup: 201
           fsGroup: 201
+        podAnnotations:
+          argocd.argoproj.io/sync-options: "ApplyOutOfOrder=true"
       child:
         claiming:
           enabled: true
