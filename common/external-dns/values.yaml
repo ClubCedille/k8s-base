@@ -593,6 +593,7 @@ rfc2136:
   ##
   zones:
     - etsmtl.club
+    - cedille.club
   ## @param rfc2136.tsigSecret When using the rfc2136 provider, specify the tsig secret to enable security. (do not specify if `rfc2136.secretName` is provided.) (optional)
   ##
   tsigSecret: ""
