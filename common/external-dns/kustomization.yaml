@@ -5,6 +5,6 @@ namespace: external-dns
 
 helmCharts:
   - name: external-dns
-    repo: oci://registry-1.docker.io/bitnamicharts/external-dns
+    repo: oci://registry-1.docker.io/bitnamicharts
     version: 9.0.0
     releaseName: external-dns
