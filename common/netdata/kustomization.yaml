@@ -29,10 +29,6 @@ helmCharts:
           runAsUser: 201
           runAsGroup: 201
           fsGroup: 201
-        database:
-          storageClass: cephfs
-        alarms:
-          storageClass: cephfs
       child:
         claiming:
           enabled: true
@@ -41,6 +37,3 @@ helmCharts:
             name: netdata-claim
       ingress:
         enabled: false
-      k8sState:
-        persistence:
-          storageClass: cephfs
