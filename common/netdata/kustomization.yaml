@@ -35,5 +35,18 @@ helmCharts:
         envFrom:
         - secretRef:
             name: netdata-claim
+        hostNetwork: true
+        dnsPolicy: ClusterFirstWithHostNet
+        configs:
+          prometheus-kubelet: |-
+            jobs:
+              - name: kubelet-volume-local
+                url: https://127.0.0.1:10250/metrics
+                tls_skip_verify: true
+                bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+                metrics:
+                  - kubelet_volume_stats_capacity_bytes
+                  - kubelet_volume_stats_used_bytes
+                  - kubelet_volume_stats_available_bytes
       ingress:
         enabled: false
