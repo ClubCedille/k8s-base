@@ -22,6 +22,7 @@ spec:
       sources:
         - chart: coroot-ce
           helm:
+            releaseName: coroot
             valueFiles:
               - $values/common/coroot-ce/values.yaml
           repoURL: https://coroot.github.io/helm-charts
