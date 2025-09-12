@@ -41,6 +41,7 @@ helmCharts:
           go.d-prometheus:
             enabled: true
             storedType: configmap
+            mountPath: /etc/netdata/go.d/prometheus.conf
             data: |-
               jobs:
                 - name: kubelet-volume-local
