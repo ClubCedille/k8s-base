@@ -38,10 +38,9 @@ helmCharts:
         hostNetwork: true
         dnsPolicy: ClusterFirstWithHostNet
         configs:
-          go.d-prometheus:
+          prometheus-kubelet:
             enabled: true
-            storedType: configmap
-            mountPath: /etc/netdata/go.d/prometheus.conf
+            path: /etc/netdata/go.d/prometheus.conf
             data: |-
               jobs:
                 - name: kubelet-volume-local
