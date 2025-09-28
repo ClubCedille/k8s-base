@@ -3,6 +3,6 @@ kind: ClusterRole
 metadata:
   name: admin
 rules:
-- apiGroups: [""]
+- apiGroups: ["*"]
   resources: ["*"]
   verbs: ["*"]
