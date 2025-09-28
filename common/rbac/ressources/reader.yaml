@@ -4,5 +4,5 @@ metadata:
   name: reader
 rules:
   - apiGroups: [""]
-    resources: ["pods"]
-    verbs: ["get","list","watch"]
+    resources: ["pods", "services", "ingress"]
+    verbs: ["get", "list", "watch"]
