@@ -15,7 +15,8 @@ global:
   ## imagePullSecrets:
   ##   - myRegistryKeySecretName
   ##
-  imagePullSecrets: []
+  imagePullSecrets:
+    - dockerhub-pull
   ## Security parameters
   ##
   security:
