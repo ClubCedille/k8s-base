@@ -24,4 +24,4 @@ helmCharts:
           repository: "bitnami/contour"
           tag: "1.30.3-debian-12-r4"
     pullPolicy: IfNotPresent
-      namespaceOverride: contour-internal
+    namespaceOverride: contour-internal
