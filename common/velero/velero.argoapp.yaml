@@ -72,6 +72,8 @@ spec:
 
               - name: image.imagePullSecrets[0].name
                 value: dockerhub-pull
+              - name: kubectl.image.repository
+                value: public.ecr.aws/bitnami/kubectl
 
           repoURL: https://vmware-tanzu.github.io/helm-charts/
           targetRevision: 9.0.4
