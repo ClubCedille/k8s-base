@@ -19,10 +19,17 @@ spec:
         namespace: external-dns
         server: "{{.server}}"
       project: "{{.name}}"
-      source:
-        repoURL: https://github.com/ClubCedille/k8s-base
-        path: common/external-dns
-        targetRevision: HEAD
+      sources:
+        - repoURL: registry-1.docker.io/bitnamicharts
+          chart: external-dns
+          targetRevision: 9.0.0
+          releaseName: external-dns
+          helm:
+              valueFiles:
+                - $values/common/external-dns/values.yaml
+        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+          targetRevision: master
+          ref: values
       syncPolicy:
         automated:
           selfHeal: true
