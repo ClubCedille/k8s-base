@@ -70,10 +70,12 @@ spec:
               - name: configuration.backupStorageLocation[0].config.checksumAlgorithm
                 value: "" # Required for Backblaze B2 — https://github.com/vmware-tanzu/velero-plugin-for-aws/pull/247
 
-              - name: image.imagePullSecrets[0].name
+              - name: image.imagePullSecrets[0]
                 value: dockerhub-pull
               - name: kubectl.image.repository
                 value: public.ecr.aws/bitnami/kubectl
+              - name: kubectl.image.tag
+                value: "1.30"
 
           repoURL: https://vmware-tanzu.github.io/helm-charts/
           targetRevision: 9.0.4
