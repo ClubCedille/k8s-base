@@ -73,7 +73,7 @@ kubeVersion: ""
 ## @param image.pullSecrets ExternalDNS image pull secrets
 ##
 image:
-  registry: docker.io
+  registry: public.ecr.aws
   repository: bitnami/external-dns
   tag: 0.18.0-debian-12-r1
   digest: ""
