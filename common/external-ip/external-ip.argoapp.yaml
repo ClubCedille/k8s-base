@@ -23,6 +23,8 @@ spec:
         targetRevision: HEAD
         path: common/external-ip
         kustomize:
+          images:
+            - alpine=public.ecr.aws/docker/library/alpine:3.20
           patches:
             - patch: |-
                 - op: add
