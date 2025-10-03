@@ -20,11 +20,10 @@ spec:
         server: "{{.server}}"
       project: "{{.name}}"
       source:
-        repoURL: oci://registry-1.docker.io/bitnamicharts
+        repoURL: registry-1.docker.io/bitnamicharts 
         chart: contour
         targetRevision: 19.5.11
         helm:
-          oci: true
           values: |
             envoy:
               service:
