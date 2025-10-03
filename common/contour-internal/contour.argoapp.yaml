@@ -20,7 +20,7 @@ spec:
         server: "{{.server}}"
       project: "{{.name}}"
       source:
-        repoURL: registry-1.docker.io/bitnamicharts 
+        repoURL: registry-1.docker.io/bitnamicharts
         chart: contour
         targetRevision: 19.5.11
         helm:
@@ -28,6 +28,9 @@ spec:
             envoy:
               service:
                 type: LoadBalancer
+            global:
+              security:
+                allowInsecureImages: true
             contour:
               ingressClass:
                 name: contour-internal
