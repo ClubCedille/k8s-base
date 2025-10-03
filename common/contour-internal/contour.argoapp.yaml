@@ -24,6 +24,7 @@ spec:
         chart: contour
         targetRevision: 19.5.11
         helm:
+          oci: true
           values: |
             envoy:
               service:
