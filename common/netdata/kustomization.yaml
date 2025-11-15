@@ -6,7 +6,7 @@ namespace: netdata
 helmCharts:
   - name: netdata
     repo: https://netdata.github.io/helmchart
-    version: 3.7.139
+    version: 3.7.151
     releaseName: netdata
     valuesInline:
       k8sState:
