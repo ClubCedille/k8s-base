@@ -42,6 +42,16 @@ helmCharts:
             name: netdata-claim
         hostNetwork: true
         dnsPolicy: ClusterFirstWithHostNet
+        readinessProbe:
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
+        livenessProbe:
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
         configs:
           prometheus-kubelet:
             enabled: true
