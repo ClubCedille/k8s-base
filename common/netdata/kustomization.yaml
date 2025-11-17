@@ -15,6 +15,11 @@ helmCharts:
           storageClass: "cephfs"
       restarter:
         enabled: true
+        image:
+          repository: rancher/kubectl
+          tag: .auto
+          pullPolicy: Always
+        restartPolicy: Never
       parent:
         claiming:
           enabled: true
