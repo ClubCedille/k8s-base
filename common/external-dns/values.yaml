@@ -584,8 +584,7 @@ rfc2136:
   host: "10.0.21.1"
   ## @param rfc2136.port When using the rfc2136 provider, specify the RFC2136 port (optional)
   ##
-  port: 53
-  #  port: 53530
+  port: 53530
   ## @param rfc2136.zone DEPRECATED: use rfc2136.zones instead.
   ## Currently, the contents of rfc2136.zone and rfc2136.zones will be merged and deduplicated, in a future release this value will be removed in favor of `rfc2136.zones`.
   ##
