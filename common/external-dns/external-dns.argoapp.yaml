@@ -23,7 +23,7 @@ spec:
         - repoURL: registry-1.docker.io/bitnamicharts
           chart: external-dns
           targetRevision: 9.0.0
-          releaseName: external-dns
+          # releaseName: external-dns
           helm:
               valueFiles:
                 - $values/common/external-dns/values.yaml
