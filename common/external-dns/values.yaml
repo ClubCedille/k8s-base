@@ -608,7 +608,7 @@ rfc2136:
   tsigKeyname: "rndc-key"
   ## @param rfc2136.tsigAxfr When using the rfc2136 provider, enable AFXR to enable security (optional)
   ##
-  tsigAxfr: true
+  tsigAxfr: false
   ## @param rfc2136.minTTL When using the rfc2136 provider, specify minimal TTL (in duration format) for records[ns, us, ms, s, m, h], see more <https://golang.org/pkg/time/#ParseDuration>
   ##
   minTTL: "0s"
