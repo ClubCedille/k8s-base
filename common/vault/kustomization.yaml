@@ -22,6 +22,7 @@ helmCharts:
     releaseName: "vault-secrets-operator"
     namespace: vault
     valuesFile: "helm/vault-secrets-operator.values.yaml"
+    includeCRDs: true
 
   - name: vault-config-operator
     version: "0.8.29"
