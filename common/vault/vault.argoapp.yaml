@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   goTemplate: true
-  goTemplateOptinos: ["missingkey=error"]
+  goTemplateOptions: ["missingkey=error"]
   goGenerators:
     - clusters: {}
   template:
