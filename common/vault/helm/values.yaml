@@ -1,0 +1,66 @@
+server:
+  dataStorage:
+    size: 8Gi
+    mountPath: "/vault/data"
+    storageClass: cephfs
+    accessMode: ReadWriteOnce
+
+  auditStorage:
+    size: 4Gi
+    mountPath: "/vault/audit"
+    storageClass: cephfs
+    accessMode: ReadWriteOnce
+
+  extraEnvironmentVars:
+    VAULT_SEAL_TYPE: gcpckms
+    GOOGLE_CREDENTIALS: /vault/userconfig/kms-creds/credentials.json
+    GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/credentials.json
+
+  extraSecretEnvironmentVars:
+    - envName: GOOGLE_REGION
+      secretName: kms-infos
+      secretKey: region
+    - envName: GOOGLE_PROJECT
+      secretName: kms-infos
+      secretKey: project
+    - envName: VAULT_GCPCKMS_SEAL_KEY_RING
+      secretName: kms-infos
+      secretKey: keyring
+    - envName: VAULT_GCPCKMS_SEAL_CRYPTO_KEY
+      secretName: kms-infos
+      secretKey: cryptokey
+
+  extraVolumes:
+    - type: secret
+      name: kms-creds
+
+  standalone:
+    enabled: true
+    config: |
+      ui = true
+      plugin_directory = "/vault/plugins"
+      log_requests_level = "debug"
+      log_level = "debug"
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+      }
+      seal "gcpckms" {
+        project     = "cedille-464122"
+        region      = "global"
+        key_ring    = "vault-cedille"
+        crypto_key  = "vault-cedille"
+      }
+      storage "gcs" {
+         bucket = "vault-cedille"
+         prefix = "vault/"
+      }
+
+ui:
+  enabled: true
+  publishNotReadyAddresses: true
+  activeVaultPodOnly: false
+  serviceType: "ClusterIP"
+  externalPort: 8200
+  targetPort: 8200

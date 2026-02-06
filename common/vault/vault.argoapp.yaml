@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: vault
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptinos: ["missingkey=error"]
+  goGenerators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-vault"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "-10"
+
+    spec:
+      destination:
+        namespace: vault
+        server: "{{.server}}"
+      project: "{{.name}}"
+      source:
+        repoURL: https://github.com/ClubCedille/k8s-base.git
+        targetRevision: HEAD
+        path: common/vault
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
+        managedNamespaceMetadata:
+          labels:
+            pod-security.kubernetes.io/enforce: privileged
+      ignoreDifferences:
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          jqPathExpressions:
+            - .webhooks[]?.clientConfig.caBundle

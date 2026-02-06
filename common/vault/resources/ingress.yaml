@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vault
+  namespace: vault
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    ingress.kubernetes.io/force-ssl-redirect: "false"
+    kubernetes.io/tls-acme: "true"
+spec:
+  ingressClassName: contour-internal
+  tls:
+    - secretName: vault-certs
+      hosts:
+        - vault.mgmtv2.cedille.club
+  rules:
+    - host: vault.mgmtv2.cedille.club
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: vault-ui
+                port:
+                  number: 8200

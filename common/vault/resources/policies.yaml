@@ -1,0 +1,52 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: common
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    # create secrets
+    path "kv-shared/data/everyone/*" {
+      capabilities = [ "read" ]
+    }
+
+    # generate new password from password policy
+    path "sys/policies/password/+/generate" {
+      capabilities = [ "read" ]
+    }
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: config-admin
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    path "sys/*" {
+      capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
+    }
+
+    path "auth/*" {
+      capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
+    }
+
+    path "github/*" {
+      capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
+    }
+
+    path "kv-system/*" {
+      capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
+    }
+
+    path "kv-v2/*" {
+      capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
+    }
+
+    path "kv/*" {
+      capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
+    }
+---
