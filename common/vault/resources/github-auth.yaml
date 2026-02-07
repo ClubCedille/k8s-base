@@ -19,3 +19,11 @@ spec:
     role: config-admin
   path: github
   organization: ClubCedille
+  clientIDReference:
+    vaultSecret:
+      path: kv-system/github/oauth
+      key: client_id
+  clientSecretReference:
+    vaultSecret:
+      path: kv-system/github/oauth
+      key: client_secret

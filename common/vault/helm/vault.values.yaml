@@ -1,4 +1,9 @@
 server:
+  image:
+    repository: "ghcr.io/clubcedille/vault"
+    tag: "1.20.0"
+    pullPolicy: IfNotPresent
+
   dataStorage:
     size: 8Gi
     mountPath: "/vault/data"
