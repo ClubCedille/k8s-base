@@ -7,6 +7,8 @@ resources:
   - resources/cluster-role.yaml
   - resources/policies.yaml
   - resources/secret-engine.yaml
+  - resources/password-policy.yaml
+  - resources/github-secret-engine.yaml
 
 helmCharts:
   - name: vault
