@@ -1,7 +1,7 @@
 server:
   image:
     repository: "ghcr.io/clubcedille/vault"
-    tag: "1.20.0"
+    tag: "v0.1.2"
     pullPolicy: IfNotPresent
 
   dataStorage:
