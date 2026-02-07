@@ -1,0 +1,21 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: AuthEngineMount
+metadata:
+  name: github
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  type: github
+  path: github
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: GitHubAuthEngineConfig
+metadata:
+  name: github-clubcedille
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  path: github
+  organization: ClubCedille
