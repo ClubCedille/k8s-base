@@ -60,7 +60,7 @@ spec:
     role: config-admin
   policy: |
     # read secrets scoped to service account namespace and name
-    path "kv/data/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_namespace}}/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_name}}/+" {
+    path "kv/data/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_namespace}}/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_name}}/*" {
       capabilities = [ "read" ]
     }
 
@@ -84,7 +84,7 @@ spec:
     role: config-admin
   policy: |
     # create/update secrets scoped to service account namespace and name
-    path "kv/data/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_namespace}}/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_name}}/+" {
+    path "kv/data/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_namespace}}/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_name}}/*" {
       capabilities = [ "create", "update", "delete" ]
     }
 
