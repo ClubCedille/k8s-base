@@ -28,12 +28,16 @@ helmCharts:
             name: netdata-claim
         database:
           storageClass: "cephfs"
+          volumesize: 15Gi
         alarms:
           storageClass: "cephfs"
         securityContext:
           runAsUser: 201
           runAsGroup: 201
           fsGroup: 201
+        resources:
+          requests:
+            ephemeral-storage: 2Gi
       child:
         claiming:
           enabled: true
