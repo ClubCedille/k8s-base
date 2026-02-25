@@ -22,7 +22,7 @@ spec:
       source:
         repoURL: https://github.com/ClubCedille/k8s-base.git
         targetRevision: HEAD
-        path: common/vault
+        path: common/vault/overlays/{{.name}}
       syncPolicy:
         automated:
           selfHeal: true
