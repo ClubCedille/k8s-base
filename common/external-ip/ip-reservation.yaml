@@ -7,8 +7,9 @@ spec:
   addresses: []
   serviceAllocation:
     namespaces:
-    - contour-external
-    - contour
+      - contour-external
+      - contour
+      - forgejo
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -17,7 +18,7 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-  - public-ip
+    - public-ip
   nodeSelectors:
-  - matchLabels:
-      etsmtl.club/external-network: "true"
+    - matchLabels:
+        etsmtl.club/external-network: "true"

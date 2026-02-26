@@ -38,8 +38,13 @@ spec:
                 repository: bitnami/envoy
                 tag: 1.31.4-debian-12-r0
             contour:
+              replicaCount: 2
               envoyServiceNamespace: contour-external
               envoyServiceName: contour-external-envoy
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
               image:
                 registry: public.ecr.aws
                 repository: bitnami/contour
