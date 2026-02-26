@@ -11,6 +11,8 @@ spec:
     - config-admin
   targetServiceAccounts:
     - vault
+    - default
+    - controller-manager
   targetNamespaces:
     targetNamespaces:
     - vault

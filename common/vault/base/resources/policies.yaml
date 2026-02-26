@@ -50,3 +50,46 @@ spec:
       capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
     }
 ---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: secret-reader
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    # read secrets scoped to service account namespace and name
+    path "kv/data/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_namespace}}/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_name}}/*" {
+      capabilities = [ "read" ]
+    }
+
+    # read github tokens scoped to namespace
+    path "github/token/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_namespace}}" {
+      capabilities =  [ "read" ]
+    }
+
+    # read shared default passwords
+    path "kv-system/default_passwords/*" {
+      capabilities = [ "read" ]
+    }
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: secret-writer
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    # create/update secrets scoped to service account namespace and name
+    path "kv/data/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_namespace}}/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_name}}/*" {
+      capabilities = [ "create", "update", "delete" ]
+    }
+
+    # generate new password from password policy
+    path "sys/policies/password/+/generate" {
+      capabilities = [ "read" ]
+    }
+---
