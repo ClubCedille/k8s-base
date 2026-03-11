@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vault-config
+  namespace: vault
+data:
+  extraconfig-from-values.hcl: |-
+    ui = true
+    plugin_directory = "/vault/plugins"
+    log_requests_level = "debug"
+    log_level = "debug"
+    listener "tcp" {
+      tls_disable = 1
+      address = "[::]:8200"
+      cluster_address = "[::]:8201"
+    }
+    seal "gcpckms" {
+      project     = "cedille-464122"
+      region      = "global"
+      key_ring    = "vault-cedille"
+      crypto_key  = "vault-cedille"
+    }
+    storage "file" {
+      path = "/vault/data"
+    }
+    disable_mlock = true

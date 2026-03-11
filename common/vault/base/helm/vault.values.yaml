@@ -51,16 +51,6 @@ server:
         address = "[::]:8200"
         cluster_address = "[::]:8201"
       }
-      seal "gcpckms" {
-        project     = "cedille-464122"
-        region      = "global"
-        key_ring    = "vault-cedille"
-        crypto_key  = "vault-cedille"
-      }
-      storage "gcs" {
-         bucket = "vault-cedille"
-         prefix = "vault/"
-      }
 
 ui:
   enabled: true
