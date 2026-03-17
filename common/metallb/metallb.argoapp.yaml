@@ -30,7 +30,7 @@ spec:
       destination:
         server: "{{.server}}"
       source:
-        repoURL: https://github.com/ClubCedille/k8s-base
+        repoURL: https://github.com/ClubCedille/k8s-base.git
         path: common/metallb
         targetRevision: HEAD
       syncPolicy:

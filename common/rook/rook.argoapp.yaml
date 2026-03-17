@@ -18,7 +18,7 @@ spec:
         server: "{{.server}}"
       project: "{{.name}}"
       source:
-        repoURL: https://github.com/ClubCedille/k8s-base
+        repoURL: https://github.com/ClubCedille/k8s-base.git
         path: common/rook/ressources
         targetRevision: HEAD
       syncPolicy:
