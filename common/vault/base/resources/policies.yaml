@@ -88,6 +88,11 @@ spec:
       capabilities = [ "create", "update", "delete" ]
     }
 
+    # metadata access (REQUIRED for delete/reconcile)
+    path "kv/metadata/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_namespace}}/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_name}}/*" {
+      capabilities = [ "read", "delete", "list" ]
+    }
+
     # generate new password from password policy
     path "sys/policies/password/+/generate" {
       capabilities = [ "read" ]
