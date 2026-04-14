@@ -4,7 +4,10 @@ metadata:
   name: public-ip
   namespace: metallb-system
 spec:
-  addresses: []
+  addresses:
+    - 142.137.247.74/32
+    - 142.137.247.76/32
+    - 142.137.247.78/32
   serviceAllocation:
     namespaces:
       - contour-external
