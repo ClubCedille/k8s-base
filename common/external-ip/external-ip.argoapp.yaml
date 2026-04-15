@@ -38,6 +38,12 @@ spec:
                   value: '{{  index .metadata.annotations "etsmtl.club/forgejo-ssh-ip" }}/32'
               target:
                 kind: IPAddressPool
+            - patch: |-
+                - op: add
+                  path: /spec/addresses/1
+                  value: '{{  index .metadata.annotations "etsmtl.club/byzantium-ip" }}/32'
+              target:
+                kind: IPAddressPool
       destination:
         server: '{{.server}}'
         namespace: metallb-system
