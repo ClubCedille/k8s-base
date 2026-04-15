@@ -10,7 +10,7 @@ spec:
       - contour-external
       - contour
       - forgejo
-      - byzantium
+      - byzantium-helm
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
