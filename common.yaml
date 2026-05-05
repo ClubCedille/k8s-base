@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-100"
 spec:
-  project: default
+  project: common
   destination:
     server: https://kubernetes.default.svc
   source:
@@ -17,8 +17,8 @@ spec:
       recurse: true
       include: "{*.argoapp.yaml,*.argoapp.yml}"
   syncPolicy:
-        automated:
-          selfHeal: true
-          prune: true
-        syncOptions:
-          - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
