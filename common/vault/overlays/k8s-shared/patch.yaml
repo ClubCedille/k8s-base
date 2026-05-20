@@ -20,7 +20,8 @@ data:
       key_ring    = "vault-cedille"
       crypto_key  = "vault-cedille"
     }
-    storage "file" {
-      path = "/vault/data"
+    storage "gcs" {
+       bucket = "vault-cedille"
+       prefix = "vault/"
     }
     disable_mlock = true
