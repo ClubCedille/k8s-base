@@ -10,7 +10,7 @@ spec:
   tls:
     - hosts:
         - vault.prodv2.cedille.club
-      secretName: vault-prod-tls
+      secretName: vault-cedille-prod-tls
   rules:
     - host: vault.prodv2.cedille.club
       http:
