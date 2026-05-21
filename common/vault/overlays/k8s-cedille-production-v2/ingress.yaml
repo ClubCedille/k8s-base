@@ -28,7 +28,7 @@ kind: Certificate
 metadata:
   name: vault-cedille-prod-tls
 spec:
-  secretName: vault-tls
+  secretName: vault-cedille-prod-tls
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
