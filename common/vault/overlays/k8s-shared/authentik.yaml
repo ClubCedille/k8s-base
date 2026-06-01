@@ -1,0 +1,55 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: AuthEngineMount
+metadata:
+  name: oidc
+spec:
+  authentication:
+    path: kubernetes
+    role: policy-admin
+  type: oidc
+  path: oidc
+  description: Authentik OIDC authentication
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: JWTOIDCAuthEngineConfig
+metadata:
+  name: authentik-oidc-config
+spec:
+  authentication:
+    path: kubernetes
+    role: policy-admin
+  path: oidc
+  oidcDiscoveryURL: https://auth.etsmtl.club/application/o/vault/
+  oidcClientID: vault
+  oidcClientSecretRef:
+    name: authentik-oidc-secret
+    key: clientSecret
+  defaultRole: reader
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: JWTOIDCAuthEngineRole
+metadata:
+  name: reader
+spec:
+  authentication:
+    path: kubernetes
+    role: policy-admin
+  path: oidc
+  roleName: reader
+  userClaim: sub
+  groupsClaim: groups
+  boundAudiences:
+    - "aojKHAhILSYNfppvl7sFPUjSnVYWsUWKmi9IUSru"
+  allowedRedirectURIs:
+    - https://vault.etsmtl.club/ui/vault/auth/oidc/oidc/callback
+    - https://vault.etsmtl.club/oidc/callback
+    - http://localhost:8250/oidc/callback
+  oidcScopes:
+    - openid
+    - profile
+    - email
+    - groups
+  tokenPolicies:
+    - reader
+  tokenTTL: 24h
+  tokenMaxTTL: 24h
