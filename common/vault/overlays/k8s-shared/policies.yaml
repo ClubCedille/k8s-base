@@ -1,0 +1,86 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Group
+metadata:
+  name: exec-cedille
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: exec-cedille
+  type: external
+  policies:
+    - exec-cedille
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: GroupAlias
+metadata:
+  name: exec-cedille
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: exec-cedille
+  groupName: exec-cedille
+  authEngineMountPath: oidc
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Group
+metadata:
+  name: exec-applets
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: exec-applets
+  type: external
+  policies:
+    - exec-applets
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: GroupAlias
+metadata:
+  name: exec-applets
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: exec-applets
+  groupName: exec-applets
+  authEngineMountPath: oidc
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: exec-cedille
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    path "kv/data/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+
+    path "kv/metadata/*" {
+      capabilities = ["read", "list"]
+    }
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: exec-applets
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    path "kv/data/applets/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    path "kv/data/planifets-*/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+
+    path "kv/metadata/planifets-*/*" {
+      capabilities = ["read", "list"]
+    }

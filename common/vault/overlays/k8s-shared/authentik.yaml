@@ -17,10 +17,10 @@ metadata:
 spec:
   authentication:
     path: kubernetes
-    role: policy-admin
+    role: config-admin
   path: oidc
   oidcDiscoveryURL: https://auth.etsmtl.club/application/o/vault/
-  oidcClientID: vault
+  oidcClientID: "aojKHAhILSYNfppvl7sFPUjSnVYWsUWKmi9IUSru"
   oidcClientSecretRef:
     name: authentik-oidc-secret
     key: clientSecret
@@ -29,11 +29,11 @@ spec:
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: JWTOIDCAuthEngineRole
 metadata:
-  name: reader
+  name: authentik-exec
 spec:
   authentication:
     path: kubernetes
-    role: policy-admin
+    role: config-admin
   path: oidc
   roleName: reader
   userClaim: sub
@@ -53,3 +53,4 @@ spec:
     - reader
   tokenTTL: 24h
   tokenMaxTTL: 24h
+---

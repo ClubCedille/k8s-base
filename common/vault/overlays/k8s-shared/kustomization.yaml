@@ -6,6 +6,7 @@ resources:
   - httpproxy.yaml
   - certificate.yaml
   - authentik.yaml
+  - policies.yaml
 
 
 patches:
