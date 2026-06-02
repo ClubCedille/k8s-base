@@ -18,7 +18,7 @@ spec:
   authentication:
     path: kubernetes
     role: config-admin
-  path: oidc
+  path: oidc/oidc
   oidcDiscoveryURL: https://auth.etsmtl.club/application/o/vault/
   oidcClientID: "aojKHAhILSYNfppvl7sFPUjSnVYWsUWKmi9IUSru"
   oidcClientSecretRef:
