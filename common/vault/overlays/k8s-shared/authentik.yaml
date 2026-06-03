@@ -1,7 +1,7 @@
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: AuthEngineMount
 metadata:
-  name: oidc
+  name: authentik
 spec:
   authentication:
     path: kubernetes
@@ -18,7 +18,7 @@ spec:
   authentication:
     path: kubernetes
     role: config-admin
-  path: oidc/oidc
+  path: oidc/authentik
   oidcDiscoveryURL: https://auth.etsmtl.club/application/o/vault/
   oidcClientID: "aojKHAhILSYNfppvl7sFPUjSnVYWsUWKmi9IUSru"
   oidcClientSecretRef:
@@ -34,7 +34,7 @@ spec:
   authentication:
     path: kubernetes
     role: config-admin
-  path: oidc
+  path: oidc/authentik
   roleName: reader
   userClaim: sub
   groupsClaim: groups
