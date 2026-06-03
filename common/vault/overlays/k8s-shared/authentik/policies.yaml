@@ -86,9 +86,14 @@ spec:
     path: kubernetes
     role: config-admin
   policy: |
+    path "kv/*" {
+    capabilities = ["list"]
+    }
+
     path "kv/data/applets*/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
+
     path "kv/data/planifets*/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
