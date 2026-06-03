@@ -40,7 +40,7 @@ spec:
   userClaim: email
   groupsClaim: groups
   allowedRedirectURIs:
-    - https://vault.etsmtl.club/ui/vault/auth/oidc/authentik/callback
+    - https://vault.etsmtl.club/ui/vault/auth/oidc/authentik/oidc/callback
     - https://vault.etsmtl.club/oidc/callback
     - http://localhost:8250/oidc/callback
   OIDCScopes:
