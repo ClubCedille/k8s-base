@@ -19,11 +19,12 @@ spec:
     path: kubernetes
     role: config-admin
   path: oidc/authentik
-  oidcDiscoveryURL: https://auth.etsmtl.club/application/o/vault/
-  oidcClientID: "aojKHAhILSYNfppvl7sFPUjSnVYWsUWKmi9IUSru"
-  oidcClientSecretRef:
-    name: authentik-oidc-secret
-    key: clientSecret
+  OIDCDiscoveryURL: https://auth.etsmtl.club/application/o/vault/
+  OIDCCredentials:
+    secret:
+      name: authentik-oidc-secret
+    usernameKey: clientID
+    passwordKey: clientSecret
   defaultRole: reader
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
