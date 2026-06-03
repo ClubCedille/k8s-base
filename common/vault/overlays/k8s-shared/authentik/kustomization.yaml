@@ -5,7 +5,3 @@ resources:
   - oidc-engine.yaml
   - groups.yaml
   - policies.yaml
-
-
-patches:
-  - path: patch.yaml
