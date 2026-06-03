@@ -25,7 +25,9 @@ spec:
       name: authentik-oidc-secret
     usernameKey: clientID
     passwordKey: clientSecret
-  defaultRole: reader
+  defaultRole: exec
+  JWTSupportedAlgs:
+    - HS265
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: JWTOIDCAuthEngineRole
