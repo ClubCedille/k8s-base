@@ -20,14 +20,15 @@ spec:
     role: config-admin
   path: oidc/authentik
   OIDCDiscoveryURL: https://auth.etsmtl.club/application/o/vault/
+  OIDCClientID: "aojKHAhILSYNfppvl7sFPUjSnVYWsUWKmi9IUSru"
   OIDCCredentials:
     secret:
       name: authentik-oidc-secret
-    usernameKey: clientID
+    # usernameKey: clientID
     passwordKey: clientSecret
   defaultRole: exec
-  JWTSupportedAlgs:
-    - HS256
+  # JWTSupportedAlgs:
+  #   - HS256
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: JWTOIDCAuthEngineRole
