@@ -57,15 +57,19 @@ spec:
     path: kubernetes
     role: config-admin
   policy: |
-    path "kv/data/*" {
+    path "kv/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
 
-    path "kv/metadata/*" {
-      capabilities = ["read", "list"]
+    path "kv-system/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
     }
 
-    path "kv/metadata" {
+    path "kv-v2/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+
+    path "kv-v2/metadata" {
       capabilities = ["list"]
     }
 ---
