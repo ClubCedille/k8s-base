@@ -1,6 +1,31 @@
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: Group
 metadata:
+  name: authentik-admin
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: exec-cedille
+  type: external
+  policies:
+    - root
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: GroupAlias
+metadata:
+  name: authentik-admin
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: authentik Admins
+  groupName: exec-cedille
+  authEngineMountPath: oidc
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Group
+metadata:
   name: exec-cedille
 spec:
   authentication:
