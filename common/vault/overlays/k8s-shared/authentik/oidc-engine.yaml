@@ -48,8 +48,6 @@ spec:
     - profile
     - email
     - groups
-  tokenPolicies:
-    - exec-cedille
   tokenTTL: 24h
   tokenMaxTTL: 24h
 ---
