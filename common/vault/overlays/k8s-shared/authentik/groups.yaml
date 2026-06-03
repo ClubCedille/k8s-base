@@ -20,7 +20,7 @@ spec:
     path: kubernetes
     role: config-admin
   name: authentik Admins
-  groupName: exec-cedille
+  groupName: authentik-admin
   authEngineMountPath: oidc
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
