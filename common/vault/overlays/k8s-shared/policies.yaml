@@ -57,7 +57,7 @@ spec:
     path: kubernetes
     role: config-admin
   policy: |
-    path "kv/data/*" {
+    path "kv/**/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
 
