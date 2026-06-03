@@ -21,7 +21,7 @@ spec:
     role: config-admin
   name: authentik Admins
   groupName: authentik-admin
-  authEngineMountPath: oidc
+  authEngineMountPath: oidc/authentik
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: Group
@@ -46,7 +46,7 @@ spec:
     role: config-admin
   name: exec-cedille
   groupName: exec-cedille
-  authEngineMountPath: oidc
+  authEngineMountPath: oidc/authentik
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: Group
@@ -71,7 +71,7 @@ spec:
     role: config-admin
   name: club-cedille
   groupName: club-cedille
-  authEngineMountPath: oidc
+  authEngineMountPath: oidc/authentik
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: Group
@@ -96,5 +96,5 @@ spec:
     role: config-admin
   name: exec-applets
   groupName: exec-applets
-  authEngineMountPath: oidc
+  authEngineMountPath: oidc/authentik
 ---
