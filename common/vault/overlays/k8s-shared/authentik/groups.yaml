@@ -9,7 +9,7 @@ spec:
   name: authentik-admin
   type: external
   policies:
-    - root
+    - authentik-admin
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: GroupAlias
