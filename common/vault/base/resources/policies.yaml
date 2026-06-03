@@ -30,6 +30,10 @@ spec:
       capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
     }
 
+    path "identity/*" {
+      capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
+    }
+
     path "auth/*" {
       capabilities =  ["create", "read", "update", "delete", "list", "sudo"]
     }
