@@ -26,6 +26,31 @@ spec:
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: Group
 metadata:
+  name: club-cedille
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: exec-cedille
+  type: external
+  policies:
+    - club-cedille
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: GroupAlias
+metadata:
+  name: club-cedille
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: club-cedille
+  groupName: club-cedille
+  authEngineMountPath: oidc
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Group
+metadata:
   name: exec-applets
 spec:
   authentication:
@@ -48,47 +73,3 @@ spec:
   groupName: exec-applets
   authEngineMountPath: oidc
 ---
-apiVersion: redhatcop.redhat.io/v1alpha1
-kind: Policy
-metadata:
-  name: exec-cedille
-spec:
-  authentication:
-    path: kubernetes
-    role: config-admin
-  policy: |
-    path "kv/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv-system/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv-v2/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv-v2/metadata" {
-      capabilities = ["list"]
-    }
----
-apiVersion: redhatcop.redhat.io/v1alpha1
-kind: Policy
-metadata:
-  name: exec-applets
-spec:
-  authentication:
-    path: kubernetes
-    role: config-admin
-  policy: |
-    path "kv/data/applets/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-    path "kv/data/planifets-*/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv/metadata/planifets-*/*" {
-      capabilities = ["read", "list"]
-    }
