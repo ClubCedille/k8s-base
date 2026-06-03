@@ -86,7 +86,11 @@ spec:
     path: kubernetes
     role: config-admin
   policy: |
-    path "kv/*" {
+    path "kv/" {
+    capabilities = ["list"]
+    }
+
+    path "kv/data/" {
     capabilities = ["list"]
     }
 
