@@ -19,7 +19,7 @@ spec:
     path: kubernetes
     role: config-admin
   path: oidc/authentik
-  OIDCDiscoveryURL: https://auth.etsmtl.club/application/o/vault
+  OIDCDiscoveryURL: https://auth.etsmtl.club/application/o/vault/
   OIDCCredentials:
     secret:
       name: authentik-oidc-secret
