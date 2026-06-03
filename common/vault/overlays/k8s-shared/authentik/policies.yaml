@@ -98,6 +98,6 @@ spec:
       capabilities = ["create", "read", "update", "delete", "list"]
     }
 
-    path "kv/metadata/planifets*/*" {
-      capabilities = ["read", "list"]
+    path "kv/data/planifets/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
     }
