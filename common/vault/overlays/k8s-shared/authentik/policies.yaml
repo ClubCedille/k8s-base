@@ -90,11 +90,14 @@ spec:
     capabilities = ["list"]
     }
 
-    path "kv/data/applets*/*" {
+    path "kv/data/applets/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    path "kv/data/applets-*/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
 
-    path "kv/data/planifets*/*" {
+    path "kv/data/planifets-*/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
 
