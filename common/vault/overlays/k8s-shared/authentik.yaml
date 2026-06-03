@@ -36,11 +36,9 @@ spec:
     path: kubernetes
     role: config-admin
   path: oidc/authentik
-  roleName: reader
-  userClaim: sub
+  name: exec
+  userClaim: email
   groupsClaim: groups
-  boundAudiences:
-    - "aojKHAhILSYNfppvl7sFPUjSnVYWsUWKmi9IUSru"
   allowedRedirectURIs:
     - https://vault.etsmtl.club/ui/vault/auth/oidc/oidc/callback
     - https://vault.etsmtl.club/oidc/callback
