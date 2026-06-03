@@ -27,7 +27,7 @@ spec:
     passwordKey: clientSecret
   defaultRole: exec
   JWTSupportedAlgs:
-    - HS265
+    - HS256
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: JWTOIDCAuthEngineRole
