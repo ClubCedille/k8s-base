@@ -11,14 +11,14 @@ resources:
 
 helmCharts:
   - name: vault
-    version: "0.29.1"
+    version: "0.32.0"
     repo: "https://helm.releases.hashicorp.com"
     releaseName: "vault"
     namespace: vault
     valuesFile: "helm/vault.values.yaml"
 
   - name: vault-secrets-operator
-    version: "1.0.1"
+    version: "1.4.0"
     repo: "https://helm.releases.hashicorp.com"
     releaseName: "vault-secrets-operator"
     namespace: vault
@@ -26,7 +26,7 @@ helmCharts:
     includeCRDs: true
 
   - name: vault-config-operator
-    version: "0.8.29"
+    version: "0.8.49"
     repo: "https://redhat-cop.github.io/vault-config-operator"
     releaseName: "vault-config-operator"
     namespace: vault
