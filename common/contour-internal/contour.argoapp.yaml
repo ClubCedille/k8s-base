@@ -36,12 +36,17 @@ spec:
               security:
                 allowInsecureImages: true
             contour:
+              replicaCount: 2
               ingressClass:
                 name: contour-internal
                 default: false
               envoyServiceNamespace: contour-internal
               envoyServiceName: contour-internal-envoy
               manageCRDs: false
+              leaderElection:
+                leaseDuration: 60s
+                renewDeadline: 50s
+                retryPeriod: 10s
               image:
                 registry: public.ecr.aws
                 repository: bitnami/contour

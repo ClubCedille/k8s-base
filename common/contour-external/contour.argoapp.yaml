@@ -31,8 +31,6 @@ spec:
             envoy:
               service:
                 type: LoadBalancer
-                annotations:
-                  metallb.io/allow-shared-ip: "shared-sharedmain-ip"
               image:
                 registry: public.ecr.aws
                 repository: bitnami/envoy
@@ -41,6 +39,10 @@ spec:
               replicaCount: 2
               envoyServiceNamespace: contour-external
               envoyServiceName: contour-external-envoy
+              leaderElection:
+                leaseDuration: 60s
+                renewDeadline: 50s
+                retryPeriod: 10s
               resources:
                 requests:
                   cpu: 100m

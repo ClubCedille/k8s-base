@@ -21,9 +21,12 @@ spec:
         - -c
         args:
         - |
-          export VLAN_DEVICE=$(ip route | grep 142.137.247.0/24 | grep -o 'enx[a-zA-Z0-9]*' | head -n 1)
-          echo "Printing vlan device"
-          echo $VLAN_DEVICE
+          export VLAN_DEVICE=$(ip route | grep 142.137.247.0/24 | grep -oE 'dev\s+\S+' | awk '{print $2}' | head -n 1)
+          if [ -z "$VLAN_DEVICE" ]; then
+            echo "ERROR: could not find network interface for 142.137.247.0/24"
+            exit 1
+          fi
+          echo "Using VLAN device: $VLAN_DEVICE"
           ip route add 142.137.247.0/24 dev $VLAN_DEVICE table 100
           ip route add default via 142.137.247.1 table 100
           ip rule add from 142.137.247.0/24 lookup 100
