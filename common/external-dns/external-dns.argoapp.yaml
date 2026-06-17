@@ -27,6 +27,8 @@ spec:
           helm:
               valueFiles:
                 - $values/common/external-dns/values.yaml
+              values: |
+                txtOwnerId: "{{.name}}"
         - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
           targetRevision: master
           ref: values
