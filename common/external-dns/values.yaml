@@ -655,6 +655,7 @@ transip:
 ##
 domainFilters:
   - etsmtl.club
+  - cedille.club
 ## @param excludeDomains Exclude subdomains (optional)
 ##
 excludeDomains: []
