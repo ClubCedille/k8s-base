@@ -32,18 +32,6 @@ spec:
                   value: '{{ index .metadata.annotations "etsmtl.club/external-ip" }}/32'
               target:
                 kind: IPAddressPool
-            - patch: |-
-                - op: add
-                  path: /spec/addresses/-
-                  value: '{{ or (index .metadata.annotations "etsmtl.club/forgejo-ssh-ip") (index .metadata.annotations "etsmtl.club/external-ip") }}/32'
-              target:
-                kind: IPAddressPool
-            - patch: |-
-                - op: add
-                  path: /spec/addresses/-
-                  value: '{{ or (index .metadata.annotations "etsmtl.club/byzantium-ip") (index .metadata.annotations "etsmtl.club/external-ip") }}/32'
-              target:
-                kind: IPAddressPool
       destination:
         server: '{{.server}}'
         namespace: metallb-system
