@@ -31,6 +31,8 @@ spec:
             envoy:
               service:
                 type: LoadBalancer
+                annotations:
+                  metallb.io/allow-shared-ip: "shared-sharedmain-ip"
               image:
                 registry: public.ecr.aws
                 repository: bitnami/envoy
