@@ -7,7 +7,7 @@ kind: Kustomization
 helmCharts:
   - name: velero
     version: "9.0.4"
-    repo: "https://vmware-tanzu.github.io/helm-charts/"
+    repo: "vmware-tanzu/velero"
     releaseName: "velero"
     namespace: velero
     valuesFile: "helm/values.yaml"
