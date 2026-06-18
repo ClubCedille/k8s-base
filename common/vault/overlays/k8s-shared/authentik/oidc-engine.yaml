@@ -43,6 +43,7 @@ spec:
     - https://vault.etsmtl.club/ui/vault/auth/oidc/authentik/oidc/callback
     - https://vault.etsmtl.club/oidc/callback
     - http://localhost:8250/oidc/callback
+    - http://localhost:8250/oidc/authentik/oidc/callback
   OIDCScopes:
     - openid
     - profile
