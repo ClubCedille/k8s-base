@@ -396,7 +396,7 @@ configuration:
         checksumAlgorithm: ""
 
     - name: migration
-      bucket: migration-bucket
+      bucket: k8s-migration
       prefix: velero
       provider: aws
       accessMode: ReadWrite
