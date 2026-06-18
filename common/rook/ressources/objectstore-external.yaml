@@ -1,0 +1,19 @@
+#################################################################################################################
+# Register the existing external Ceph RGW (running on the Proxmox/Ceph cluster, not deployed by Rook) so Rook
+# can provision S3 buckets (ObjectBucketClaims) for apps via the ceph-bucket StorageClass in storageclasses.yaml.
+#
+# The RGW endpoint below is the keepalived VIP (10.0.21.59) load-balancing across the 4 external RGW nodes
+# (pve01/pve03/pve04/pve06). Bucket data placed in storage class GARAGE_COLD on the Ceph side transitions to
+# Garage (10.0.21.50) via a Ceph RGW cloud-tier lifecycle policy - see the storage tiering plan/memory for details.
+#################################################################################################################
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStore
+metadata:
+  name: ceph-objectstore
+  namespace: rook-ceph-external  # namespace:cluster
+spec:
+  gateway:
+    port: 7480
+    externalRgwEndpoints:
+      - ip: 10.0.21.59
+  preservePoolsOnDelete: true

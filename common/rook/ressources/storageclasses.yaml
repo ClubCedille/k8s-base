@@ -2,6 +2,8 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: ceph-rbd
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
 allowVolumeExpansion: true
 provisioner: rook-ceph.rbd.csi.ceph.com
 parameters:
@@ -18,3 +20,14 @@ parameters:
   csi.storage.k8s.io/fstype: ext4
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ceph-bucket
+provisioner: rook-ceph-external.ceph.rook.io/bucket
+reclaimPolicy: Delete
+parameters:
+  objectStoreName: ceph-objectstore
+  objectStoreNamespace: rook-ceph-external
+  region: default
