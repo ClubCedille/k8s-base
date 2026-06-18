@@ -406,7 +406,7 @@ configuration:
         s3Url: https://s3.ca-east-006.backblazeb2.com
 
   volumeSnapshotLocation:
-    - provider: ""
+    - provider: "aws"
 
 
 
