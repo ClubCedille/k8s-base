@@ -22,7 +22,7 @@ spec:
       source:
         repoURL: https://github.com/ClubCedille/k8s-base.git
         targetRevision: HEAD
-        path: common/velero/
+        path: common/velero
       syncPolicy:
         automated:
           selfHeal: true
