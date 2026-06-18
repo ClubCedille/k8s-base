@@ -340,7 +340,7 @@ configuration:
 
   volumeSnapshotLocation:
     - provider: ""
-    - provider: ""
+
 
 
 ##
