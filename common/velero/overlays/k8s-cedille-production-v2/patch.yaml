@@ -1,0 +1,16 @@
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  name: default
+  namespace: velero
+spec:
+  accessMode: ReadWrite
+  config:
+    checksumAlgorithm: ""
+    region: ca-east-006
+    s3Url: https://s3.ca-east-006.backblazeb2.com
+  default: true
+  objectStorage:
+    bucket: 'k8s-cedille-production-v2-bucket'
+    prefix: velero
+  provider: aws
