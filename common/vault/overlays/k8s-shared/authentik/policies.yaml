@@ -97,7 +97,11 @@ spec:
       capabilities = ["create", "read", "update", "delete", "list"]
     }
 
-    path "kv/data/planifets-*/*" {
+    path "kv/data/planifets-staging/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+
+    path "kv/data/planifets-dev/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
 

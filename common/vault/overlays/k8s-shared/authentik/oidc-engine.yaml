@@ -51,4 +51,3 @@ spec:
     - groups
   tokenTTL: 24h
   tokenMaxTTL: 24h
----
