@@ -31,6 +31,7 @@ spec:
           ip route add default via 142.137.247.1 table 100
           ip rule add from 142.137.247.0/24 lookup 100
           ip rule add to 142.137.247.0/24 lookup 100
+          arp -s 142.137.247.101 00:00:5e:00:01:01 -i $VLAN_DEVICE
           exec sleep infinity
         securityContext:
           privileged: true
