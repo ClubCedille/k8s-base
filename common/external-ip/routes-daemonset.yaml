@@ -34,6 +34,7 @@ spec:
           ip rule add from 142.137.247.76/32 lookup 100 2>/dev/null || true
           ip rule add from 142.137.247.78/32 lookup 100 2>/dev/null || true
           arp -s 142.137.247.101 00:00:5e:00:01:01 -i $VLAN_DEVICE
+          arp -s 142.137.247.99 bc:24:11:19:3c:51 -i $VLAN_DEVICE
           exec sleep infinity
         securityContext:
           privileged: true
