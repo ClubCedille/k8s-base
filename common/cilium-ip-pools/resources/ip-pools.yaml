@@ -1,0 +1,33 @@
+# CiliumLoadBalancerIPPool — public pool (replaces MetalLB public-ip)
+# IP blocks populated via cluster annotations:
+#   etsmtl.club/external-ip: "<IP>"
+# Applied by the cilium-ip-pools ApplicationSet using cluster selectors.
+#
+# The actual IP addresses are cluster-specific and must be patched
+# per cluster (see kustomize overlays or ArgoCD cluster annotations).
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: public-pool
+spec:
+  blocks: []   # populated via cluster-specific overlay/patch
+---
+# CiliumLoadBalancerIPPool — internal pool (replaces MetalLB internal-ip)
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: internal-pool
+spec:
+  blocks: []   # populated via cluster-specific overlay/patch
+---
+# CiliumL2AnnouncementPolicy — announces LoadBalancer IPs via L2 (ARP/NDP)
+# Replaces MetalLB L2Advertisement.
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: l2-announce-all
+spec:
+  loadBalancerIPs: true
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/os: linux

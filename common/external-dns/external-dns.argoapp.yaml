@@ -29,7 +29,7 @@ spec:
                 - $values/common/external-dns/values.yaml
               values: |
                 txtOwnerId: "{{.name}}"
-        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+        - repoURL: 'https://github.com/ClubCedille/k8s-foundation.git'
           targetRevision: master
           ref: values
       syncPolicy:

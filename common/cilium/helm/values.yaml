@@ -1,0 +1,35 @@
+# Cilium values for k8s-foundation clusters.
+# L2 announcements (no BGP), kube-proxy replacement, Gateway API enabled.
+#
+# k8sServiceHost: direct IP of a control plane node — used by Cilium to reach
+# kube-apiserver before its own eBPF kube-proxy takes over the kubernetes ClusterIP.
+# Update this to a dedicated CP VIP if one is configured.
+kubeProxyReplacement: true
+k8sServiceHost: "10.0.130.11"
+k8sServicePort: 6443
+
+ipam:
+  mode: kubernetes
+
+gatewayAPI:
+  enabled: true
+
+l2announcements:
+  enabled: true
+
+loadBalancer:
+  l7:
+    backend: envoy
+
+operator:
+  replicas: 2
+
+hubble:
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+
+# Needed for Gateway API HTTPRoutes to work via Envoy
+envoy:
+  enabled: true

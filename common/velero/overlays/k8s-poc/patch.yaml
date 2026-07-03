@@ -1,0 +1,27 @@
+# Velero BackupStorageLocation for k8s-poc — GarageHQ S3 (on-prem cold storage).
+# Pre-requisites:
+#   1. Create bucket "velero-k8s-poc" in GarageHQ
+#   2. Create GarageHQ key with read/write access to that bucket
+#   3. Create Secret "velero-s3-credentials" in velero namespace:
+#        [default]
+#        aws_access_key_id = <key>
+#        aws_secret_access_key = <secret>
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  name: default
+  namespace: velero
+spec:
+  provider: aws
+  default: true
+  accessMode: ReadWrite
+  credential:
+    name: velero-s3-credentials
+    key: cloud
+  objectStorage:
+    bucket: velero-k8s-poc
+  config:
+    region: garage
+    s3Url: http://10.0.21.50:3900
+    s3ForcePathStyle: "true"
+    checksumAlgorithm: ""

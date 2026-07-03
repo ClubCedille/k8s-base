@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: netdata
+  name: garagehq
   namespace: argocd
 spec:
   goTemplate: true
@@ -10,25 +10,22 @@ spec:
     - clusters: {}
   template:
     metadata:
-      name: "{{.name}}-netdata"
+      name: "{{.name}}-garagehq"
       namespace: argocd
       annotations:
-        argocd.argoproj.io/sync-wave: "-70"
+        argocd.argoproj.io/sync-wave: "-10"
     spec:
-      destination:
-        namespace: netdata
-        server: "{{.server}}"
       project: "{{.name}}"
+      destination:
+        server: "{{.server}}"
+        namespace: storage-config
       source:
-        repoURL: https://github.com/ClubCedille/k8s-base.git
-        targetRevision: HEAD
-        path: common/netdata
+        repoURL: https://github.com/ClubCedille/k8s-foundation.git
+        path: common/garage/resources
+        targetRevision: master
       syncPolicy:
         automated:
           selfHeal: true
           prune: true
         syncOptions:
           - CreateNamespace=true
-        managedNamespaceMetadata:
-          labels:
-            pod-security.kubernetes.io/enforce: privileged

@@ -10,7 +10,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://github.com/ClubCedille/k8s-base
+    repoURL: https://github.com/ClubCedille/k8s-foundation
     path: common
     targetRevision: HEAD
     directory:

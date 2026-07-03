@@ -1,0 +1,40 @@
+# Vault config override for k8s-poc:
+#   - Storage: Ceph RGW S3 (on-prem) instead of GCS
+#   - Seal: GCP KMS (same keyring as k8s-shared)
+#   - StorageClass: cephfs (same as other clusters)
+#
+# Pre-requisites:
+#   1. Create bucket "vault-k8s-poc" on Ceph RGW (via radosgw-admin or Rook OBC)
+#   2. Push RGW credentials to Vault kv-system/default_passwords/rgw-vault-k8s-poc
+#   3. Push GCP KMS service account JSON to vault-config secret (or use workload identity)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vault-config
+  namespace: vault
+data:
+  extraconfig-from-values.hcl: |-
+    ui = true
+    plugin_directory = "/vault/plugins"
+    log_level = "info"
+    listener "tcp" {
+      tls_disable = 1
+      address = "[::]:8200"
+      cluster_address = "[::]:8201"
+    }
+    seal "gcpckms" {
+      project     = "cedille-464122"
+      region      = "global"
+      key_ring    = "vault-cedille"
+      crypto_key  = "vault-cedille"
+    }
+    storage "s3" {
+      endpoint               = "http://10.0.21.59:7480"
+      bucket                 = "vault-k8s-poc"
+      region                 = "default"
+      s3_force_path_style    = true
+      disable_ssl            = true
+      access_key             = "${RGW_ACCESS_KEY}"
+      secret_key             = "${RGW_SECRET_KEY}"
+    }
+    disable_mlock = true

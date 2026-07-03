@@ -1,0 +1,20 @@
+# Gateway API HTTPRoute (replaces Contour HTTPProxy used in other clusters)
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: vault
+  namespace: vault
+spec:
+  parentRefs:
+    - name: cilium-gateway
+      namespace: kube-system
+  hostnames:
+    - vault.k8s-poc.etsmtl.club
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: vault-ui
+          port: 8200

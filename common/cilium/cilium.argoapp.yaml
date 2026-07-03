@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: coroot-operator
+  name: cilium
   namespace: argocd
 spec:
   goTemplate: true
@@ -10,23 +10,24 @@ spec:
     - clusters: {}
   template:
     metadata:
-      name: "{{.name}}-coroot-operator"
+      name: "{{.name}}-cilium"
       namespace: argocd
       annotations:
-        argocd.argoproj.io/sync-wave: "-71"
+        argocd.argoproj.io/sync-wave: "-100"
     spec:
-      destination:
-        namespace: coroot
-        server: "{{.server}}"
       project: "{{.name}}"
+      destination:
+        server: "{{.server}}"
+        namespace: kube-system
       sources:
-        - chart: coroot-operator
+        - chart: cilium
+          repoURL: https://helm.cilium.io/
+          targetRevision: 1.17.3
           helm:
+            releaseName: cilium
             valueFiles:
-              - $values/common/coroot-operator/values.yaml
-          repoURL: https://coroot.github.io/helm-charts
-          targetRevision: v0.2.10
-        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+              - $values/common/cilium/helm/values.yaml
+        - repoURL: https://github.com/ClubCedille/k8s-foundation.git
           targetRevision: master
           ref: values
       syncPolicy:
@@ -35,8 +36,4 @@ spec:
           prune: true
         syncOptions:
           - CreateNamespace=true
-        managedNamespaceMetadata:
-          labels: 
-            pod-security.kubernetes.io/enforce: privileged
-
-        
+          - ServerSideApply=true

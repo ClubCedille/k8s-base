@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: vault
+  name: cilium-ip-pools
   namespace: argocd
 spec:
   goTemplate: true
@@ -10,30 +10,22 @@ spec:
     - clusters: {}
   template:
     metadata:
-      name: "{{.name}}-vault"
+      name: "{{.name}}-cilium-ip-pools"
       namespace: argocd
       annotations:
-        argocd.argoproj.io/sync-wave: "-10"
+        argocd.argoproj.io/sync-wave: "-80"
     spec:
-      destination:
-        namespace: vault
-        server: "{{.server}}"
       project: "{{.name}}"
+      destination:
+        server: "{{.server}}"
       source:
         repoURL: https://github.com/ClubCedille/k8s-foundation.git
-        targetRevision: HEAD
-        path: common/vault/overlays/{{.name}}
+        path: common/cilium-ip-pools/resources
+        targetRevision: master
       syncPolicy:
         automated:
           selfHeal: true
           prune: true
         syncOptions:
           - CreateNamespace=true
-        managedNamespaceMetadata:
-          labels:
-            pod-security.kubernetes.io/enforce: privileged
-      ignoreDifferences:
-        - group: admissionregistration.k8s.io
-          kind: MutatingWebhookConfiguration
-          jqPathExpressions:
-            - .webhooks[]?.clientConfig.caBundle
+          - ServerSideApply=true

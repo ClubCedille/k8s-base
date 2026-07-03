@@ -1,0 +1,49 @@
+# GarageHQ S3-compatible endpoint config.
+# GarageHQ (nas01, 10.0.21.50) is the cold storage tier.
+# Apps use this ConfigMap + the garagehq-credentials Secret to configure their S3 client.
+#
+# Storage class "GARAGE_COLD" on Ceph RGW routes cold data to GarageHQ automatically
+# via lifecycle tiering — no app changes needed for tiering.
+# This ConfigMap is for apps that write DIRECTLY to GarageHQ (bypass Ceph RGW).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: garagehq-config
+  namespace: storage-config
+data:
+  endpoint: "http://10.0.21.50:3900"
+  region: "garage"
+  # Admin API (metrics, cluster management) — not for app use
+  admin_endpoint: "http://10.0.21.50:3903"
+---
+# Credentials synced from Vault.
+# Push the GarageHQ access/secret key to Vault at:
+#   kv-system/default_passwords/garagehq
+# with keys "accessKey" and "secretKey".
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: storage-config-auth
+  namespace: storage-config
+spec:
+  method: kubernetes
+  mount: kubernetes
+  kubernetes:
+    role: secret-reader
+    serviceAccount: default
+    audiences:
+      - vault
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: garagehq-credentials
+  namespace: storage-config
+spec:
+  vaultAuthRef: storage-config-auth
+  type: kv-v2
+  mount: kv-system
+  path: default_passwords/garagehq
+  destination:
+    name: garagehq-credentials
+    create: true

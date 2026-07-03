@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: postgresql-cloudnative
+  name: gateway-api-crds
   namespace: argocd
 spec:
   goTemplate: true
@@ -10,19 +10,18 @@ spec:
     - clusters: {}
   template:
     metadata:
-      name: "{{.name}}-postgresql-cloudnative"
+      name: "{{.name}}-gateway-api-crds"
       namespace: argocd
       annotations:
-        argocd.argoproj.io/sync-wave: "-10"
+        argocd.argoproj.io/sync-wave: "-200"
     spec:
-      destination:
-        namespace: cnpg-system
-        server: "{{.server}}"
       project: "{{.name}}"
+      destination:
+        server: "{{.server}}"
       source:
-        repoURL: https://github.com/ClubCedille/k8s-foundation.git
-        path: common/postgresql-cloudnative
-        targetRevision: HEAD
+        repoURL: https://github.com/kubernetes-sigs/gateway-api
+        path: config/crd/standard
+        targetRevision: v1.3.0
       syncPolicy:
         automated:
           selfHeal: true

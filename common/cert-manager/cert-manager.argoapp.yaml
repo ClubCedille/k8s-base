@@ -26,10 +26,10 @@ spec:
               - $values/common/cert-manager/helm/cert-manager-values.yaml
           repoURL: https://charts.jetstack.io
           targetRevision: v1.18.1
-        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+        - repoURL: 'https://github.com/ClubCedille/k8s-foundation.git'
           targetRevision: master
           ref: values
-        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+        - repoURL: 'https://github.com/ClubCedille/k8s-foundation.git'
           targetRevision: master
           path: common/cert-manager/issuers
       syncPolicy:
