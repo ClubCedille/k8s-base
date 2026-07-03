@@ -1,10 +1,12 @@
 # CiliumLoadBalancerIPPool — public pool (replaces MetalLB public-ip)
-# IP blocks populated via cluster annotations:
-#   etsmtl.club/external-ip: "<IP>"
-# Applied by the cilium-ip-pools ApplicationSet using cluster selectors.
 #
-# The actual IP addresses are cluster-specific and must be patched
-# per cluster (see kustomize overlays or ArgoCD cluster annotations).
+# Public exposure model: OPNsense 1:1 NAT
+#   - Blocks here contain PRIVATE IPs from the k8s VLAN (e.g. 10.0.130.x/32)
+#   - OPNsense maps each public IP → the private Cilium LB IP via 1:1 NAT
+#   - DNS: public IP → OPNsense → NAT → Cilium LB private IP → k8s service
+#   - No public IPs in this pool; no extra routing needed inside the cluster
+#
+# Blocks are cluster-specific and must be patched per cluster overlay.
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
