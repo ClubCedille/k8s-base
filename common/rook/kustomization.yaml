@@ -18,3 +18,18 @@ resources:
   - ressources/objectstore-admin-secret.yaml
   - ressources/objectstore-external.yaml
   - ressources/storageclasses.yaml
+
+patches:
+  # The ceph-csi-operator subchart ServiceAccount has no namespace in its template,
+  # so ArgoCD would apply it to the destination namespace (rook-ceph-external).
+  # Force it into rook-ceph where the controller-manager Deployment expects it.
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: rook-ceph
+    target:
+      group: ""
+      version: v1
+      kind: ServiceAccount
+      name: ceph-csi
+      labelSelector: "helm.sh/chart=ceph-csi-operator-1.0.1"
