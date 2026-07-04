@@ -10,11 +10,17 @@ helmCharts:
     valuesInline:
       crds:
         enabled: true
+      ceph-csi-operator:
+        controllerManager:
+          manager:
+            env:
+              csiServiceAccountPrefix: "ceph-csi-"
 
 resources:
   - ressources/cluster-external.yaml
   - ressources/common-external.yaml
   - ressources/csi-drivers.yaml
+  - ressources/csi-rbac.yaml
   - ressources/objectstore-admin-secret.yaml
   - ressources/objectstore-external.yaml
   - ressources/storageclasses.yaml
