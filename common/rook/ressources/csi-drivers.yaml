@@ -1,4 +1,13 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rook-ceph
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
+---
 # OperatorConfig defines the default settings for all CSI drivers.
 apiVersion: csi.ceph.io/v1
 kind: OperatorConfig
