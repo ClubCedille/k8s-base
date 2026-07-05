@@ -89,7 +89,7 @@ spec:
   policy: |
     # create/update secrets scoped to service account namespace and name
     path "kv/data/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_namespace}}/{{identity.entity.aliases.${auth/kubernetes/@accessor}.metadata.service_account_name}}/*" {
-      capabilities = [ "create", "update", "delete" ]
+      capabilities = [ "create", "read", "update", "delete" ]
     }
 
     # metadata access (REQUIRED for delete/reconcile)
