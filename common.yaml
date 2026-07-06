@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: common
+  name: common-k8s-foundation
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-100"
 spec:
-  project: common
+  project: k8s-foundation
   destination:
     server: https://kubernetes.default.svc
   source:
