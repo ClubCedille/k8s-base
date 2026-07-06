@@ -13,6 +13,7 @@ spec:
     - vault
     - default
     - controller-manager
+    - vault-config-operator-controller-manager
   targetNamespaces:
     targetNamespaces:
       - vault
