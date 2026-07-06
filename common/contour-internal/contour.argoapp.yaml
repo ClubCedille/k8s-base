@@ -7,7 +7,10 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-    - clusters: {}
+    - clusters:
+        selector:
+          matchLabels:
+            stack: k8s-base
   template:
     metadata:
       name: "{{.name}}-contour-internal"
