@@ -29,7 +29,13 @@ spec:
           echo "Using VLAN device: $VLAN_DEVICE"
           ip route add 142.137.247.0/24 dev $VLAN_DEVICE table 100 2>/dev/null || true
           ip route add default via 142.137.247.1 table 100 2>/dev/null || true
-          ip rule add to 142.137.247.0/24 lookup 100 2>/dev/null || true
+          # Deliberately no "ip rule add to 142.137.247.0/24 lookup 100" here:
+          # that rule matched on destination only, so it hijacked ANY new
+          # outbound connection to this /24 (e.g. ArgoCD reaching an
+          # unrelated host in the same block), not just replies to services
+          # exposed on our own public VIPs. Reply symmetry for those VIPs is
+          # already guaranteed by the "from <vip>/32" rules below matching
+          # on source, which is all that's needed.
           ip rule add from 142.137.247.75/32 lookup 100 2>/dev/null || true
           ip rule add from 142.137.247.76/32 lookup 100 2>/dev/null || true
           ip rule add from 142.137.247.78/32 lookup 100 2>/dev/null || true
