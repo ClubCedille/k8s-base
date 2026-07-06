@@ -33,3 +33,29 @@ hubble:
 # Needed for Gateway API HTTPRoutes to work via Envoy
 envoy:
   enabled: true
+
+# Talos required tweaks: https://docs.siderolabs.com/kubernetes-guides/cni/deploying-cilium#without-kube-proxy-2
+# Talos already mounts the cgroupv2 hierarchy read-write; let Cilium use it instead of remounting.
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE

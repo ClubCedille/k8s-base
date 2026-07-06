@@ -1,3 +1,7 @@
+# NOTE: on a new cluster, run common/cilium/bootstrap.sh by hand first —
+# ArgoCD needs a CNI to schedule its own pods, so it can't bootstrap Cilium
+# itself. Same chart/release name/values here, so ArgoCD's first sync adopts
+# the manually-installed release for ongoing drift tracking and upgrades.
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
