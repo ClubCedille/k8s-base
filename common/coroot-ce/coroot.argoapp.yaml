@@ -40,5 +40,5 @@ spec:
         syncOptions:
           - CreateNamespace=true
         managedNamespaceMetadata:
-          labels: 
+          labels:
             pod-security.kubernetes.io/enforce: privileged

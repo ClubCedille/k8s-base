@@ -28,10 +28,10 @@ spec:
           targetRevision: 9.0.3
           # releaseName: external-dns
           helm:
-              valueFiles:
-                - $values/common/external-dns/values.yaml
-              values: |
-                txtOwnerId: "{{.name}}"
+            valueFiles:
+              - $values/common/external-dns/values.yaml
+            values: |
+              txtOwnerId: "{{.name}}"
         - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
           targetRevision: master
           ref: values
