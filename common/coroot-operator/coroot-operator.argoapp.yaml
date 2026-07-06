@@ -28,7 +28,7 @@ spec:
             valueFiles:
               - $values/common/coroot-operator/values.yaml
           repoURL: https://coroot.github.io/helm-charts
-          targetRevision: v0.2.10
+          targetRevision: v0.9.7
         - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
           targetRevision: master
           ref: values
