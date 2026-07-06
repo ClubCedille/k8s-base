@@ -21,7 +21,7 @@ data:
       crypto_key  = "vault-cedille"
     }
     storage "gcs" {
-       bucket = "vault-cedille"
+       bucket = "vault-shared-cedille"
        prefix = "vault/"
     }
     disable_mlock = true
