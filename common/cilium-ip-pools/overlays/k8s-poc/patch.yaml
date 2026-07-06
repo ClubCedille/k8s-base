@@ -1,0 +1,19 @@
+# k8s-poc block assignment.
+# public-pool: single IP for now, more added as new services need one.
+# internal-pool: small range reserved on the k8s VLAN for internal-only LB services.
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: public-pool
+spec:
+  blocks:
+    - cidr: 10.0.130.101/32
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: internal-pool
+spec:
+  blocks:
+    - start: 10.0.130.200
+      stop: 10.0.130.210

@@ -20,7 +20,7 @@ spec:
         server: "{{.server}}"
       source:
         repoURL: https://github.com/ClubCedille/k8s-foundation.git
-        path: common/cilium-ip-pools/resources
+        path: common/cilium-ip-pools/overlays/{{.name}}
         targetRevision: master
       syncPolicy:
         automated:
