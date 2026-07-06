@@ -32,3 +32,14 @@ helmCharts:
     namespace: vault
     valuesFile: "helm/vault-config-operator.values.yaml"
     includeCRDs: true
+
+patches:
+  - target:
+      group: secrets.hashicorp.com
+      version: v1beta1
+      kind: VaultAuth
+      name: vault-secrets-operator-default-transit-auth
+    patch: |
+      - op: replace
+        path: /spec/namespace
+        value: ""
