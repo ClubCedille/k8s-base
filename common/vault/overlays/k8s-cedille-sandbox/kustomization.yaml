@@ -7,3 +7,22 @@ resources:
 
 patches:
   - path: patch.yaml
+  - target:
+      kind: JWTOIDCAuthEngineConfig
+      name: authentik-oidc-config
+    patch: |-
+      - op: replace
+        path: /spec/OIDCDiscoveryURL
+        value: https://auth.etsmtl.club/application/o/vault-sandbox/
+
+  - target:
+      kind: JWTOIDCAuthEngineRole
+      name: authentik-exec
+    patch: |-
+      - op: replace
+        path: /spec/allowedRedirectURIs
+        value:
+          - https://vault.sandbox.cedille.club/ui/vault/auth/oidc/authentik/oidc/callback
+          - https://vault.sandbox.cedille.club/oidc/callback
+          - http://localhost:8250/oidc/callback
+          - http://localhost:8250/oidc/authentik/oidc/callback
