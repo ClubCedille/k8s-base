@@ -34,6 +34,13 @@ spec:
             envoy:
               service:
                 type: LoadBalancer
+                {{- if eq .name "k8s-shared" }}
+                # Pinned so kubelet/pods can resolve git.etsmtl.club to this
+                # ClusterIP internally (registry-hosts Omni config patch),
+                # bypassing the external VLAN hairpin path. Without pinning,
+                # a Service delete/recreate would silently reassign this IP.
+                clusterIP: "10.101.44.200"
+                {{- end }}
                 annotations:
                   metallb.io/allow-shared-ip: "shared-sharedmain-ip"
               image:
