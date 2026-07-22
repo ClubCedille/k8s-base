@@ -10,14 +10,14 @@ spec:
       name: letsencrypt-lanets
     server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
-    - dns01:
-        cloudflare:
-          apiTokenSecretRef:
-            name: cloudflare-token
-            key: token
-      selector:
-        dnsZones:
-        - lanets.ca
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-token
+              key: token
+        selector:
+          dnsZones:
+            - lanets.ca
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -31,11 +31,11 @@ spec:
       name: letsencrypt-lanets-stg
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     solvers:
-    - dns01:
-        cloudflare:
-          apiTokenSecretRef:
-            name: cloudflare-token
-            key: token
-      selector:
-        dnsZones:
-        - lanets.ca
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-token
+              key: token
+        selector:
+          dnsZones:
+            - lanets.ca
