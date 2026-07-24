@@ -5,6 +5,7 @@ resources:
   - ../../base
   - httpproxy.yaml
   - certificate.yaml
+  - github-actions-oidc.yaml
 
 patches:
   - path: patch.yaml
