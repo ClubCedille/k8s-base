@@ -1,0 +1,103 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: AuthEngineMount
+metadata:
+  name: github-actions
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  type: jwt
+  path: jwt
+  description: GitHub Actions OIDC authentication
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: JWTOIDCAuthEngineConfig
+metadata:
+  name: github-actions-config
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  path: jwt/github-actions
+  OIDCDiscoveryURL: https://token.actions.githubusercontent.com
+  boundIssuer: https://token.actions.githubusercontent.com
+  JWTSupportedAlgs:
+    - RS256
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: k8s-shared-terraform
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    # Allow the Terraform provider to validate and manage its own short-lived token.
+    path "auth/token/lookup-self" {
+      capabilities = ["read"]
+    }
+
+    path "auth/token/renew-self" {
+      capabilities = ["update"]
+    }
+
+    path "auth/token/revoke-self" {
+      capabilities = ["update"]
+    }
+
+    # Node-RED secrets managed by terraform/nodered/authentik-vault.
+    path "kv/data/dci-nodered/default/nodered-secrets" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/dci-nodered/default/nodered-secrets" {
+      capabilities = ["read", "delete", "list"]
+    }
+
+    # Outline secrets managed by terraform/outline/authentik-vault.
+    # The namespace is variable, while the managed secret names are fixed.
+    path "kv/data/+/default/outline-secrets" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/+/default/outline-secrets" {
+      capabilities = ["read", "delete", "list"]
+    }
+
+    path "kv/data/+/default/outline-postgresql" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/+/default/outline-postgresql" {
+      capabilities = ["read", "delete", "list"]
+    }
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: JWTOIDCAuthEngineRole
+metadata:
+  name: k8s-shared-terraform
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  path: jwt/github-actions
+  name: k8s-shared-terraform
+  roleType: jwt
+  userClaim: repository
+  boundAudiences:
+    - https://vault.etsmtl.club
+  boundClaimsType: string
+  boundClaims:
+    repository: ClubCedille/k8s-shared
+    repository_id: "971715316"
+    repository_owner_id: "6483038"
+    ref: refs/heads/main
+    job_workflow_ref: ClubCedille/k8s-shared/.github/workflows/apply-tf.yml@refs/heads/main
+  tokenPolicies:
+    - k8s-shared-terraform
+  tokenNoDefaultPolicy: true
+  tokenTTL: 30m
+  tokenMaxTTL: 30m
+  tokenExplicitMaxTTL: 30m
+  tokenType: service
