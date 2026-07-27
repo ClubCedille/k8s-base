@@ -72,6 +72,15 @@ spec:
     path "kv/metadata/+/default/outline-postgresql" {
       capabilities = ["read", "delete", "list"]
     }
+
+    # Coder OIDC secret managed by terraform/coder/authentik-vault.
+    path "kv/data/coder/default/coder-oidc-secret" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/coder/default/coder-oidc-secret" {
+      capabilities = ["read", "delete", "list"]
+    }
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: JWTOIDCAuthEngineRole
