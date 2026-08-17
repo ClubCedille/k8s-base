@@ -8,3 +8,4 @@ helmCharts:
     repo: oci://registry-1.docker.io/bitnamicharts
     version: 9.0.3
     releaseName: external-dns-cedille
+    valuesFile: values.yaml
