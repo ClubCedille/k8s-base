@@ -59,7 +59,7 @@ extraDeploy:
   - apiVersion: secrets.hashicorp.com/v1beta1
     kind: VaultAuth
     metadata:
-      name: external-dns-vault-auth
+      name: external-dns-cedille-vault-auth
       namespace: external-dns
     spec:
       method: kubernetes
@@ -72,15 +72,15 @@ extraDeploy:
   - apiVersion: secrets.hashicorp.com/v1beta1
     kind: VaultStaticSecret
     metadata:
-      name: cloudflare-token-etsmtl
+      name: cloudflare-token-cedille
       namespace: external-dns
     spec:
-      vaultAuthRef: external-dns-vault-auth
+      vaultAuthRef: external-dns-cedille-vault-auth
       type: kv-v1
       mount: kv-system
-      path: default_passwords/cloudflare-token-etsmtl
+      path: default_passwords/cloudflare-token-cedille
       destination:
-        name: cloudflare-token-etsmtl
+        name: cloudflare-token-cedille
         create: true
 ## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
 ##
@@ -384,7 +384,7 @@ cloudflare:
   ## @param cloudflare.secretName When using the Cloudflare provider, it's the name of the secret containing cloudflare_api_token or cloudflare_api_key.
   ## This ignores cloudflare.apiToken, and cloudflare.apiKey
   ##
-  secretName: "cloudflare-token-etsmtl"
+  secretName: "cloudflare-token-cedille"
   ## @param cloudflare.email When using the Cloudflare provider, `CF_API_EMAIL` to set (optional). Needed when using CF_API_KEY
   ##
   email: ""
@@ -681,12 +681,12 @@ transip:
   ##
   apiKey: ""
 ## @param domainFilters Limit possible target zones by domain suffixes (optional)
-## cedille.club is intentionally left out: the current Cloudflare API token
-## (kv-system/default_passwords/cloudflare-token-etsmtl) is scoped to etsmtl.club
-## and lanets.ca only. Add it back once a token covering cedille.club exists.
+## etsmtl.club/lanets.ca are handled by the separate common/external-dns release
+## (kv-system/default_passwords/cloudflare-token-etsmtl). This release uses its own
+## Cloudflare API token, scoped only to cedille.club.
 ##
 domainFilters:
-  - etsmtl.club
+  - cedille.club
 ## @param excludeDomains Exclude subdomains (optional)
 ##
 excludeDomains: []

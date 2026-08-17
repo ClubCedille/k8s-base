@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: external-dns-cedille
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            stack: k8s-base
+  template:
+    metadata:
+      name: "{{.name}}-external-dns-cedille"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "-10"
+    spec:
+      destination:
+        namespace: external-dns
+        server: "{{.server}}"
+      project: "{{.name}}"
+      sources:
+        - repoURL: registry-1.docker.io/bitnamicharts
+          chart: external-dns
+          targetRevision: 9.0.3
+          helm:
+            valueFiles:
+              - $values/common/external-dns-cedille/values.yaml
+            values: |
+              txtOwnerId: "{{.name}}"
+        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+          targetRevision: master
+          ref: values
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
