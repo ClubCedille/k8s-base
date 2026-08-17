@@ -55,7 +55,33 @@ commonAnnotations: {}
 ##
 ## @param extraDeploy Array of extra objects to deploy with the release (evaluated as a template).
 ##
-extraDeploy: []
+extraDeploy:
+  - apiVersion: secrets.hashicorp.com/v1beta1
+    kind: VaultAuth
+    metadata:
+      name: external-dns-vault-auth
+      namespace: external-dns
+    spec:
+      method: kubernetes
+      mount: kubernetes
+      kubernetes:
+        audiences:
+          - vault
+        role: secret-reader
+        serviceAccount: default
+  - apiVersion: secrets.hashicorp.com/v1beta1
+    kind: VaultStaticSecret
+    metadata:
+      name: cloudflare-token-etsmtl
+      namespace: external-dns
+    spec:
+      vaultAuthRef: external-dns-vault-auth
+      type: kv-v1
+      mount: kv-system
+      path: default_passwords/cloudflare-token-etsmtl
+      destination:
+        name: cloudflare-token-etsmtl
+        create: true
 ## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
 ##
 kubeVersion: ""
@@ -120,7 +146,7 @@ sources:
 ## Available providers are:
 ## - akamai, alibabacloud, aws, azure, azure-private-dns, civo, cloudflare, coredns, digitalocean, exoscale, google, linode, ns1, oci, ovh, pdns, pihole, rfc2136, scaleway, transip
 ##
-provider: rfc2136
+provider: cloudflare
 ## @param initContainers Attach additional init containers to the pod (evaluated as a template)
 ##
 initContainers: []
@@ -358,13 +384,16 @@ cloudflare:
   ## @param cloudflare.secretName When using the Cloudflare provider, it's the name of the secret containing cloudflare_api_token or cloudflare_api_key.
   ## This ignores cloudflare.apiToken, and cloudflare.apiKey
   ##
-  secretName: ""
+  secretName: "cloudflare-token-etsmtl"
   ## @param cloudflare.email When using the Cloudflare provider, `CF_API_EMAIL` to set (optional). Needed when using CF_API_KEY
   ##
   email: ""
   ## @param cloudflare.proxied When using the Cloudflare provider, enable the proxy feature (DDOS protection, CDN...) (optional)
+  ## Kept disabled: existing records are plain (unproxied) A records pointing at real origin IPs.
+  ## Enabling this would silently switch them to Cloudflare's proxy (hidden origin IP) - a deliberate
+  ## follow-up decision, not a side effect of this migration.
   ##
-  proxied: true
+  proxied: false
   ## @param cloudflare.dnsRecordsPerPage Number of DNS records to fetch per page. (optional)
   ## When using the Cloudflare provider, specify how many DNS records listed per page, max possible 5,000 (default: 100)
   ##
@@ -652,10 +681,12 @@ transip:
   ##
   apiKey: ""
 ## @param domainFilters Limit possible target zones by domain suffixes (optional)
+## cedille.club is intentionally left out: the current Cloudflare API token
+## (kv-system/default_passwords/cloudflare-token-etsmtl) is scoped to etsmtl.club
+## and lanets.ca only. Add it back once a token covering cedille.club exists.
 ##
 domainFilters:
   - etsmtl.club
-  - cedille.club
 ## @param excludeDomains Exclude subdomains (optional)
 ##
 excludeDomains: []
