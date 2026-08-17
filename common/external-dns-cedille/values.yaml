@@ -711,9 +711,11 @@ annotationFilter: ""
 ##
 labelFilter: ""
 ## @param ingressClassFilters Filter sources managed by external-dns via IngressClass (optional)
+## This instance publishes to the public Cloudflare zone (cedille.club), so it must only ever
+## consider contour-external resources - see common/external-dns/values.yaml for why.
 ##
 ingressClassFilters:
-  - contour-internal
+  - contour-external
 ## @param managedRecordTypesFilters Filter record types managed by external-dns (optional)
 ##
 managedRecordTypesFilters: []
