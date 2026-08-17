@@ -711,9 +711,14 @@ annotationFilter: ""
 ##
 labelFilter: ""
 ## @param ingressClassFilters Filter sources managed by external-dns via IngressClass (optional)
+## This instance publishes to the public Cloudflare zone (etsmtl.club), so it must only ever
+## consider contour-external resources. Leaving contour-internal here means that whenever a
+## hostname has both a public and an internal HTTPProxy/Ingress (e.g. auth.etsmtl.club), this
+## is the only class that passes the filter, so external-dns can only pick the internal
+## (10.5.0.10, unreachable from the internet) target - never the public one.
 ##
 ingressClassFilters:
-  - contour-internal
+  - contour-external
 ## @param managedRecordTypesFilters Filter record types managed by external-dns (optional)
 ##
 managedRecordTypesFilters: []
