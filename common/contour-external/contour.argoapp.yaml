@@ -47,6 +47,17 @@ spec:
                 registry: docker.io
                 repository: envoyproxy/envoy
                 tag: v1.31.10
+              # Chart default (192Mi limit) OOM-kills envoy once the number of
+              # HTTPProxies routed grows (35+ across apps as of 2026-08).
+              # Envoy was crashlooping on OOM on multiple nodes, breaking
+              # nextcloud/authentik SSO sessions intermittently.
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                limits:
+                  cpu: 300m
+                  memory: 512Mi
             contour:
               replicaCount: 2
               envoyServiceNamespace: contour-external
