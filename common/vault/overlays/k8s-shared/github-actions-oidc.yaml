@@ -81,6 +81,15 @@ spec:
     path "kv/metadata/coder/default/coder-oidc-secret" {
       capabilities = ["read", "delete", "list"]
     }
+
+    # Matomo OIDC secret managed by terraform/matomo/authentik-vault.
+    path "kv/data/matomo/default/matomo-oidc-secret" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/matomo/default/matomo-oidc-secret" {
+      capabilities = ["read", "delete", "list"]
+    }
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: JWTOIDCAuthEngineRole
