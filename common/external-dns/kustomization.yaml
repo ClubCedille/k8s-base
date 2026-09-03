@@ -9,3 +9,17 @@ helmCharts:
     version: 9.0.3
     releaseName: external-dns
     valuesFile: values.yaml
+
+# kube-score flags several checks on the upstream Bitnami chart that the club
+# has no control over. See k8s-shared/README.md#politique-kube-score.
+patches:
+  - target:
+      kind: Deployment
+      name: external-dns
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: external-dns
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy

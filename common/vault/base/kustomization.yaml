@@ -44,3 +44,47 @@ patches:
       - op: replace
         path: /spec/namespace
         value: ""
+  # kube-score flags several checks on the upstream HashiCorp charts that the
+  # club has no control over (container-resources, ephemeral-storage,
+  # runAsNonRoot uid/gid, missing NetworkPolicy, floating image tags). See
+  # k8s-shared/README.md#politique-kube-score for the rationale/checklist.
+  - target:
+      kind: StatefulSet
+      name: vault
+    patch: |-
+      apiVersion: apps/v1
+      kind: StatefulSet
+      metadata:
+        name: vault
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy
+  - target:
+      kind: Deployment
+      name: vault-agent-injector
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: vault-agent-injector
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy
+  - target:
+      kind: Deployment
+      name: vault-secrets-operator-controller-manager
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: vault-secrets-operator-controller-manager
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy
+  - target:
+      kind: Deployment
+      name: vault-config-operator
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: vault-config-operator
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy
