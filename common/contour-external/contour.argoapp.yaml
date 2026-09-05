@@ -51,13 +51,15 @@ spec:
               # HTTPProxies routed grows (35+ across apps as of 2026-08).
               # Envoy was crashlooping on OOM on multiple nodes, breaking
               # nextcloud/authentik SSO sessions intermittently.
+              # 512Mi (PR #63) still OOM-killing individual pods as of
+              # 2026-09-05 (156 restarts on one pod) — raised further.
               resources:
                 requests:
                   cpu: 100m
                   memory: 256Mi
                 limits:
                   cpu: 300m
-                  memory: 512Mi
+                  memory: 4Gi
             contour:
               replicaCount: 2
               envoyServiceNamespace: contour-external
