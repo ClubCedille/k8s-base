@@ -39,3 +39,28 @@ patches:
       kind: ServiceAccount
       name: ceph-csi
       labelSelector: "helm.sh/chart=ceph-csi-operator-1.0.1"
+  # kube-score flags several checks on the upstream rook-ceph chart that the
+  # club has no control over. See k8s-shared/README.md#politique-kube-score.
+  # Note: CephCluster/OSD/mon/mgr Deployments are created dynamically by the
+  # rook operator at runtime and are not part of this static kustomize build,
+  # so only the operator + ceph-csi-operator controller are covered here.
+  - target:
+      kind: Deployment
+      name: rook-ceph-operator
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: rook-ceph-operator
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy
+  - target:
+      kind: Deployment
+      name: ceph-csi-controller-manager
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: ceph-csi-controller-manager
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy

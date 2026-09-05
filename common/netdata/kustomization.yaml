@@ -72,3 +72,37 @@ helmCharts:
                     - kubelet_volume_stats_available_bytes
       ingress:
         enabled: false
+
+# kube-score flags several checks on the upstream netdata chart that the club
+# has no control over. See k8s-shared/README.md#politique-kube-score.
+patches:
+  - target:
+      kind: DaemonSet
+      name: netdata-child
+    patch: |-
+      apiVersion: apps/v1
+      kind: DaemonSet
+      metadata:
+        name: netdata-child
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy
+  - target:
+      kind: Deployment
+      name: netdata-parent
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: netdata-parent
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy
+  - target:
+      kind: Deployment
+      name: netdata-k8s-state
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: netdata-k8s-state
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy

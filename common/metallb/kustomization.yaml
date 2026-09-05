@@ -15,3 +15,27 @@ patches:
     target:
       kind: Namespace
       name: metallb-system
+  # kube-score flags several checks on the upstream MetalLB manifests that the
+  # club has no control over. See k8s-shared/README.md#politique-kube-score.
+  # Not sourced via helmCharts:, but the same annotation-patch pattern applies
+  # to any remote/vendored base the club doesn't author.
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: controller
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy
+    target:
+      kind: Deployment
+      name: controller
+  - patch: |-
+      apiVersion: apps/v1
+      kind: DaemonSet
+      metadata:
+        name: speaker
+        annotations:
+          kube-score/ignore: container-resources, container-ephemeral-storage-request-and-limit, container-security-context-user-group-id, pod-networkpolicy, container-image-tag, container-image-pull-policy
+    target:
+      kind: DaemonSet
+      name: speaker
