@@ -9,7 +9,7 @@ spec:
   type: oidc
   path: oidc
   description: Authentik OIDC authentication
-  tune:
+  config:
     listingVisibility: "unauth"
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
