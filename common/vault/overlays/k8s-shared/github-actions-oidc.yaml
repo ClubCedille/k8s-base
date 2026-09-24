@@ -105,12 +105,12 @@ spec:
   userClaim: repository
   boundAudiences:
     - https://vault.etsmtl.club
-  boundClaimsType: string
+  boundClaimsType: glob
   boundClaims:
     repository: ClubCedille/k8s-shared
     repository_id: "971715316"
     repository_owner_id: "6483038"
-    ref: refs/heads/main
+    ref: refs/heads/*
     job_workflow_ref: ClubCedille/k8s-shared/.github/workflows/apply-tf.yml@refs/*
   tokenPolicies:
     - k8s-shared-terraform
