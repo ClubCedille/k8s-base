@@ -111,7 +111,7 @@ spec:
     repository_id: "971715316"
     repository_owner_id: "6483038"
     ref: refs/heads/main
-    job_workflow_ref: ClubCedille/k8s-shared/.github/workflows/apply-tf.yml@refs/heads/main
+    job_workflow_ref: ClubCedille/k8s-shared/.github/workflows/apply-tf.yml@refs/*
   tokenPolicies:
     - k8s-shared-terraform
   tokenNoDefaultPolicy: true
