@@ -127,3 +127,28 @@ spec:
     path "kv/data/lanets-*/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: exec-algoets
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    path "kv/*" {
+    capabilities = ["list"]
+    }
+    path "kv/data/algoets/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    path "kv/data/algoets-*/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    path "kv/data/markets/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    path "kv/data/markets-*/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }

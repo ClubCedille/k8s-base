@@ -123,3 +123,28 @@ spec:
   groupName: exec-lanets
   authEngineMountPath: oidc/authentik/
 ---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Group
+metadata:
+  name: exec-algoets
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: exec-algoets
+  type: external
+  policies:
+    - exec-algoets
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: GroupAlias
+metadata:
+  name: exec-algoets
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  name: exec-algoets
+  groupName: exec-algoets
+  authEngineMountPath: oidc/authentik/
+---
