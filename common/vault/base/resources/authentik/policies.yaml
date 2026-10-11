@@ -87,25 +87,12 @@ spec:
     role: config-admin
   policy: |
     path "kv/*" {
-    capabilities = ["list"]
+      capabilities = ["list"]
     }
-
-    path "kv/data/applets/*" {
+    path "kv/data/applets*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
-    path "kv/data/applets-*/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv/data/planifets-staging/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv/data/planifets-dev/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv/data/planifets/*" {
+    path "kv/data/planifets*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
 ---
@@ -119,12 +106,9 @@ spec:
     role: config-admin
   policy: |
     path "kv/*" {
-    capabilities = ["list"]
+      capabilities = ["list"]
     }
-    path "kv/data/lanets/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-    path "kv/data/lanets-*/*" {
+    path "kv/data/lanets*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
 ---
@@ -140,15 +124,9 @@ spec:
     path "kv/*" {
     capabilities = ["list"]
     }
-    path "kv/data/algoets/*" {
+    path "kv/data/algoets*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
-    path "kv/data/algoets-*/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-    path "kv/data/markets/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-    path "kv/data/markets-*/*" {
+    path "kv/data/markets*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
