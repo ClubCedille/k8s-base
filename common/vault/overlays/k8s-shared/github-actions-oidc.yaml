@@ -90,6 +90,15 @@ spec:
     path "kv/metadata/matomo/default/matomo-oidc-secret" {
       capabilities = ["read", "delete", "list"]
     }
+
+    # Penpot OIDC secret managed by terraform/penpot/authentik-vault.
+    path "kv/data/penpot/default/penpot-oidc-secret" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/penpot/default/penpot-oidc-secret" {
+      capabilities = ["read", "delete", "list"]
+    }
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: JWTOIDCAuthEngineRole
