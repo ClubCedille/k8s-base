@@ -99,6 +99,15 @@ spec:
     path "kv/metadata/penpot/default/penpot-oidc-secret" {
       capabilities = ["read", "delete", "list"]
     }
+
+    # Hi.Events OIDC secret managed by terraform/hi-events/authentik-vault.
+    path "kv/data/hi-events/default/hi-events-oidc-secret" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/hi-events/default/hi-events-oidc-secret" {
+      capabilities = ["read", "delete", "list"]
+    }
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: JWTOIDCAuthEngineRole
