@@ -108,6 +108,25 @@ spec:
     path "kv/metadata/hi-events/default/hi-events-oidc-secret" {
       capabilities = ["read", "delete", "list"]
     }
+
+    # InvenTree admin secret managed by terraform/inventree/authentik-vault.
+    path "kv/data/comets-inventree/default/inventree-admin" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/comets-inventree/default/inventree-admin" {
+      capabilities = ["read", "delete", "list"]
+    }
+
+    # InvenTree SSO secret managed by terraform/inventree/authentik-vault.
+    path "kv/data/comets-inventree/default/inventree-sso" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/comets-inventree/default/inventree-sso" {
+      capabilities = ["read", "delete", "list"]
+    }
+
 ---
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: JWTOIDCAuthEngineRole
