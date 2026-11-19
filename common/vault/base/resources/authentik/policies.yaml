@@ -87,24 +87,46 @@ spec:
     role: config-admin
   policy: |
     path "kv/*" {
+      capabilities = ["list"]
+    }
+    path "kv/data/applets*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    path "kv/data/planifets*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: exec-lanets
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    path "kv/*" {
+      capabilities = ["list"]
+    }
+    path "kv/data/lanets*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Policy
+metadata:
+  name: exec-algoets
+spec:
+  authentication:
+    path: kubernetes
+    role: config-admin
+  policy: |
+    path "kv/*" {
     capabilities = ["list"]
     }
-
-    path "kv/data/applets/*" {
+    path "kv/data/algoets*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
-    path "kv/data/applets-*/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv/data/planifets-staging/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv/data/planifets-dev/*" {
-      capabilities = ["create", "read", "update", "delete", "list"]
-    }
-
-    path "kv/data/planifets/*" {
+    path "kv/data/markets*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
