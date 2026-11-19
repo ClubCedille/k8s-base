@@ -91,6 +91,31 @@ spec:
       capabilities = ["read", "delete", "list"]
     }
 
+    # Dependency-Track secrets managed by
+    # terraform/dependency-track/authentik-vault (k8s-shared issue #606).
+    path "kv/data/dependency-track/default/dependency-track-db-secret" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/dependency-track/default/dependency-track-db-secret" {
+      capabilities = ["read", "delete", "list"]
+    }
+
+    path "kv/data/dependency-track/default/dependency-track-kek" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/dependency-track/default/dependency-track-kek" {
+      capabilities = ["read", "delete", "list"]
+    }
+
+    path "kv/data/dependency-track/default/dependency-track-oidc-secret" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+
+    path "kv/metadata/dependency-track/default/dependency-track-oidc-secret" {
+      capabilities = ["read", "delete", "list"]
+    }
     # Penpot OIDC secret managed by terraform/penpot/authentik-vault.
     path "kv/data/penpot/default/penpot-oidc-secret" {
       capabilities = ["create", "read", "update", "delete"]
