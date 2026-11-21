@@ -1,0 +1,24 @@
+# Restrict the cedille-operator group to a single namespace.
+#
+# The ClusterRoleBinding in ressources/bindings.yaml grants operator access in
+# every namespace. If a user should only manage one project, remove them from
+# the cluster-wide group and create a RoleBinding like this one instead, using
+# the same Omni impersonation group in that namespace.
+#
+# The group name here must match kubernetes.impersonate.groups in the Omni
+# AccessPolicy rule for that user.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cedille-operator
+  namespace: my-project
+  labels:
+    app.kubernetes.io/part-of: cedille-rbac
+subjects:
+  - kind: Group
+    name: cedille-operator
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cedille-operator
+  apiGroup: rbac.authorization.k8s.io

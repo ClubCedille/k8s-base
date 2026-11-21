@@ -1,0 +1,62 @@
+# POC Omni AccessPolicy for the Kubernetes groups in this directory.
+#
+# This is an *example*, not an Argo-managed resource. Applying it replaces the
+# whole `access-policy` resource in Omni, so copy the rules into the real
+# merged policy instead of applying this file as-is on a live account.
+#
+# Key points:
+#   - role: Reader keeps the Omni account read-only and does NOT add
+#     system:masters. Never use role: Operator here unless you want
+#     cluster-admin; ACLs add permissions, they do not remove them.
+#   - kubernetes.impersonate.groups must contain the exact names bound in
+#     common/rbac/ressources/bindings.yaml.
+metadata:
+  namespace: default
+  type: AccessPolicies.omni.sidero.dev
+  id: access-policy
+spec:
+  rules:
+    - users:
+        - poc-reader@example.com
+      clusters:
+        - k8s-shared
+      role: Reader
+      kubernetes:
+        impersonate:
+          groups:
+            - cedille-reader
+
+    - users:
+        - poc-operator@example.com
+      clusters:
+        - k8s-shared
+      role: Reader
+      kubernetes:
+        impersonate:
+          groups:
+            - cedille-operator
+
+  tests:
+    - name: poc-reader gets cedille-reader and no system:masters
+      user:
+        name: poc-reader@example.com
+      cluster:
+        name: k8s-shared
+      expected:
+        role: Reader
+        kubernetes:
+          impersonate:
+            groups:
+              - cedille-reader
+
+    - name: poc-operator gets cedille-operator while staying Omni Reader
+      user:
+        name: poc-operator@example.com
+      cluster:
+        name: k8s-shared
+      expected:
+        role: Reader
+        kubernetes:
+          impersonate:
+            groups:
+              - cedille-operator
