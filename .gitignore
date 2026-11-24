@@ -1,2 +1,5 @@
 charts/
 temp
+# Local-only files
+kubeconfig
+common/vault/vault-secret-setup.org
