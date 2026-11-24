@@ -1,0 +1,41 @@
+# These are the only link between Omni and Kubernetes RBAC.
+#
+# An Omni AccessPolicy rule only passes the group names listed in
+# spec.rules[].kubernetes.impersonate.groups to the Kubernetes API server.
+# Names in Omni have no meaning until a binding like the ones below exists.
+#
+# Contract used by Plateforme-Cedille/terraform/modules/user:
+#   cedille-reader   -> read-only, no Secrets
+#   cedille-operator -> manage workloads in namespaces, no cluster scope, no RBAC
+#
+# Do NOT add a binding for "system:masters": Omni already grants it to every
+# user whose Omni role (or ACL role) is Operator or Admin.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cedille-reader
+  labels:
+    app.kubernetes.io/part-of: cedille-rbac
+subjects:
+  - kind: Group
+    name: cedille-reader
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cedille-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cedille-operator
+  labels:
+    app.kubernetes.io/part-of: cedille-rbac
+subjects:
+  - kind: Group
+    name: cedille-operator
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cedille-operator
+  apiGroup: rbac.authorization.k8s.io
