@@ -1,0 +1,59 @@
+# Secrets consumed by the Coroot deployment.
+#
+# The Vault `secret-reader` role scopes reads to
+# kv/data/<namespace>/<service-account>/*, so these paths must live under
+# kv/data/coroot/default/.
+#
+# Required Vault entries:
+#   kv/data/coroot/default/coroot-oidc-secret
+#     OIDC_CLIENT_ID, OIDC_CLIENT_SECRET   (created by terraform/coroot/...)
+#   kv/data/coroot/default/coroot-registry
+#     .dockerconfigjson                    (Forgejo registry pull credentials)
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: coroot-vault-auth
+  namespace: coroot
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  method: kubernetes
+  mount: kubernetes
+  kubernetes:
+    audiences:
+      - vault
+    role: secret-reader
+    serviceAccount: default
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: coroot-oidc-secret
+  namespace: coroot
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  vaultAuthRef: coroot-vault-auth
+  type: kv-v1
+  mount: kv
+  path: data/coroot/default/coroot-oidc-secret
+  destination:
+    name: coroot-oidc-secret
+    create: true
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: coroot-registry
+  namespace: coroot
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  vaultAuthRef: coroot-vault-auth
+  type: kv-v1
+  mount: kv
+  path: data/coroot/default/coroot-registry
+  destination:
+    name: coroot-registry
+    create: true
+    type: kubernetes.io/dockerconfigjson
