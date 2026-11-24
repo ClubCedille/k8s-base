@@ -33,6 +33,9 @@ spec:
         - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
           targetRevision: master
           ref: values
+        - repoURL: 'https://github.com/ClubCedille/k8s-base.git'
+          targetRevision: master
+          path: common/coroot-ce/resources
       syncPolicy:
         automated:
           selfHeal: true
