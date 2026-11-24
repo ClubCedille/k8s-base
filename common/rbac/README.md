@@ -45,7 +45,6 @@ The important consequence: to get least privilege, keep humans at Omni role
 | `rbac.argoapp.yml` | ApplicationSet that applies the above to every cluster registered in Argo CD. |
 | `examples/omni-access-policy.yaml` | Example Omni ACL using the groups. Not applied by Argo. |
 | `examples/namespace-rolebinding.yaml` | Example of limiting `cedille-operator` to one namespace. |
-| `verify.sh` | `kubectl auth can-i` smoke test to run with a real user kubeconfig. |
 
 There is deliberately **no** `admin` ClusterRole here. Defining a ClusterRole
 named `admin` would overwrite the Kubernetes built-in `admin` role and turn
@@ -73,16 +72,11 @@ every namespace `RoleBinding` that references it into `*/*/*`. Omni
 
 ## Verify
 
-Use the **actual user's** kubeconfig (downloaded from Omni), then:
+The ACL itself is validated by Omni's built-in `spec.tests`. See
+`examples/omni-access-policy.yaml`: `omnictl apply` runs those tests and rejects
+the policy if the effective role or Kubernetes impersonation groups differ from
+the expected values.
 
-```bash
-./verify.sh reader
-./verify.sh operator
-```
-
-The checks assert both the positive and negative cases, e.g. a reader can
-list pods but cannot read Secrets or delete anything, and an operator can
-create a Deployment but cannot delete a Node or create a RoleBinding.
-
-Do not run the checks with an admin or `system:masters` kubeconfig: they will
-all pass and prove nothing.
+This verifies the Omni → Kubernetes group mapping. It does not verify the
+contents of the `ClusterRole` rules; those are declared in this directory and
+reviewed like any other RBAC manifest.
