@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: rbac
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: "{{.name}}-rbac"
+      namespace: argocd
+    spec:
+      destination:
+        namespace: rbac
+        server: "{{.server}}"
+      project: "{{.name}}"
+      source:
+        repoURL: https://github.com/ClubCedille/k8s-base
+        path: common/rbac/ressources
+        targetRevision: HEAD
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
