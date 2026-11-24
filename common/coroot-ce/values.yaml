@@ -33,7 +33,10 @@ ingress:
     secretName: coroot-tls
 
 storage:
-  size: 10Gi
+  # The Coroot data dir holds db.sqlite plus a metric cache that grows over
+  # time. 10Gi filled up after ~5 months and Coroot failed with
+  # "disk I/O error: disk quota exceeded".
+  size: 30Gi
   className: cephfs
 
 resources:
